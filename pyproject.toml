@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "superagent"
+version = "0.1.0"
+description = "A research-first self-improving coding-agent lab."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "PyYAML>=6.0",
+]
+
+[project.scripts]
+superagent = "superagent.cli:main"
+
+[tool.setuptools]
+packages = ["superagent"]

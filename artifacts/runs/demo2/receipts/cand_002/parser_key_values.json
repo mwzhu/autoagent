@@ -1,0 +1,37 @@
+{
+  "candidate_id": "cand_002",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:41:48.983314+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T04:41:48.948014+00:00",
+      "stderr": ".F\n======================================================================\nFAIL: test_spaces (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpbfj5dujq/worktree/tests/visible/test_visible.py\", line 14, in test_spaces\n    self.assertEqual(parse_mapping(\"a = 1\\n b = 2 \"), {\"a\": \"1\", \"b\": \"2\"})\nAssertionError: {'a ': ' 1', ' b ': ' 2 '} != {'a': '1', 'b': '2'}\n- {' b ': ' 2 ', 'a ': ' 1'}\n+ {'a': '1', 'b': '2'}\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:41:49.019663+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T04:41:48.984034+00:00",
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [
+    "src/app.py"
+  ],
+  "final_submission": {
+    "rationale": "Builtin solver copied the known fix for a satisfied task.",
+    "task_id": "parser_key_values"
+  },
+  "final_worktree_diff": "--- a/src/app.py\n+++ b/src/app.py\n@@ -1,8 +1,8 @@\n def parse_mapping(text):\n     result = {}\n     for line in text.splitlines():\n-        if not line:\n+        if not line.strip():\n             continue\n-        key, value = line.split(\"=\")\n-        result[key] = value\n+        key, value = line.split(\"=\", 1)\n+        result[key.strip()] = value.strip()\n     return result\n",
+  "hidden_passed": null,
+  "integrity_flags": [],
+  "split": "train",
+  "task_id": "parser_key_values",
+  "visible_passed": true
+}

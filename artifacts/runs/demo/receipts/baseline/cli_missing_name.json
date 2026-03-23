@@ -1,0 +1,27 @@
+{
+  "candidate_id": "baseline",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:39:53.461796+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T04:39:53.426001+00:00",
+      "stderr": "F.\n======================================================================\nFAIL: test_missing (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmp19ilwy5c/worktree/tests/visible/test_visible.py\", line 14, in test_missing\n    self.assertEqual(greet_main([]), 2)\nAssertionError: 0 != 2\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [],
+  "final_submission": {
+    "rationale": "Configuration does not satisfy the task requirements.",
+    "task_id": "cli_missing_name"
+  },
+  "final_worktree_diff": "",
+  "hidden_passed": null,
+  "integrity_flags": [],
+  "split": "train",
+  "task_id": "cli_missing_name",
+  "visible_passed": false
+}

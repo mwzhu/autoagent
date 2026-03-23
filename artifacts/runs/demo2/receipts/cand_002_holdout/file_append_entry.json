@@ -1,0 +1,45 @@
+{
+  "candidate_id": "cand_002_holdout",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:41:50.774524+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T04:41:50.735664+00:00",
+      "stderr": ".F\n======================================================================\nFAIL: test_second_append (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpb36wp69t/worktree/tests/visible/test_visible.py\", line 28, in test_second_append\n    self.assertEqual(handle.read(), \"a\\nb\")\nAssertionError: 'ab' != 'a\\nb'\n- ab\n+ a\nb\n?  +\n\n\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:41:50.812317+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T04:41:50.775086+00:00",
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/hidden -p 'test_*.py'",
+      "end_time": "2026-03-20T04:41:50.850327+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T04:41:50.812945+00:00",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [
+    "src/app.py"
+  ],
+  "final_submission": {
+    "rationale": "Builtin solver copied the known fix for a satisfied task.",
+    "task_id": "file_append_entry"
+  },
+  "final_worktree_diff": "--- a/src/app.py\n+++ b/src/app.py\n@@ -1,3 +1,5 @@\n def append_entry(path, text):\n     with open(path, \"a\", encoding=\"utf-8\") as handle:\n+        if handle.tell() > 0:\n+            handle.write(\"\\n\")\n         handle.write(text)\n",
+  "hidden_passed": true,
+  "integrity_flags": [],
+  "split": "holdout",
+  "task_id": "file_append_entry",
+  "visible_passed": true
+}

@@ -1,0 +1,15 @@
+task_id: config_region_fallback
+repo_id: config_loader
+category: data_validation
+split: holdout
+difficulty: 3
+prompt: Fix src/app.py so resolve_region falls back to the default when the config
+  value is blank or whitespace.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+mutation_lineage: []
+required_capabilities:
+- planning
+min_test_budget: 1
+min_file_read_budget: 1

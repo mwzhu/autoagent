@@ -1,0 +1,15 @@
+task_id: parser_csv_blanks
+repo_id: parser_lab
+category: parsing
+split: train
+difficulty: 1
+prompt: Fix src/app.py so parse_csv_ints skips blank comma-separated fields that only
+  contain whitespace.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+mutation_lineage: []
+required_capabilities:
+- self_check
+min_test_budget: 1
+min_file_read_budget: 1

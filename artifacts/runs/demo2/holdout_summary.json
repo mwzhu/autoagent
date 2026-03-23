@@ -1,0 +1,125 @@
+{
+  "baseline": {
+    "candidate_id": "baseline_holdout",
+    "hidden_score": 0,
+    "task_results": [
+      {
+        "duration_seconds": 0.07472515106201172,
+        "hidden_passed": false,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/baseline_holdout/api_extract_items.json",
+        "split": "holdout",
+        "task_id": "api_extract_items",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.07448816299438477,
+        "hidden_passed": false,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/baseline_holdout/config_region_fallback.json",
+        "split": "holdout",
+        "task_id": "config_region_fallback",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.08182287216186523,
+        "hidden_passed": false,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/baseline_holdout/file_append_entry.json",
+        "split": "holdout",
+        "task_id": "file_append_entry",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.07894706726074219,
+        "hidden_passed": false,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/baseline_holdout/pipeline_write_summary.json",
+        "split": "holdout",
+        "task_id": "pipeline_write_summary",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.07378363609313965,
+        "hidden_passed": false,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/baseline_holdout/state_cache_store.json",
+        "split": "holdout",
+        "task_id": "state_cache_store",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.07390379905700684,
+        "hidden_passed": false,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/baseline_holdout/validator_required_strip.json",
+        "split": "holdout",
+        "task_id": "validator_required_strip",
+        "visible_passed": false
+      }
+    ],
+    "visible_score": 0
+  },
+  "best": {
+    "candidate_id": "cand_002_holdout",
+    "hidden_score": 6,
+    "task_results": [
+      {
+        "duration_seconds": 0.10813212394714355,
+        "hidden_passed": true,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/cand_002_holdout/api_extract_items.json",
+        "split": "holdout",
+        "task_id": "api_extract_items",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.10758304595947266,
+        "hidden_passed": true,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/cand_002_holdout/config_region_fallback.json",
+        "split": "holdout",
+        "task_id": "config_region_fallback",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.11821293830871582,
+        "hidden_passed": true,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/cand_002_holdout/file_append_entry.json",
+        "split": "holdout",
+        "task_id": "file_append_entry",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.11766719818115234,
+        "hidden_passed": true,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/cand_002_holdout/pipeline_write_summary.json",
+        "split": "holdout",
+        "task_id": "pipeline_write_summary",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.10983705520629883,
+        "hidden_passed": true,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/cand_002_holdout/state_cache_store.json",
+        "split": "holdout",
+        "task_id": "state_cache_store",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.11923623085021973,
+        "hidden_passed": true,
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/demo2/receipts/cand_002_holdout/validator_required_strip.json",
+        "split": "holdout",
+        "task_id": "validator_required_strip",
+        "visible_passed": true
+      }
+    ],
+    "visible_score": 6
+  },
+  "checkpoints": []
+}

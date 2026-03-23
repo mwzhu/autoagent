@@ -1,0 +1,15 @@
+task_id: cli_missing_name
+repo_id: cli_tools
+category: cli_behavior
+split: train
+difficulty: 2
+prompt: Fix src/app.py so greet_main returns exit code 2 when the name argument is
+  missing.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+mutation_lineage: []
+required_capabilities:
+- planning
+min_test_budget: 1
+min_file_read_budget: 1

@@ -1,0 +1,15 @@
+task_id: validator_required_strip
+repo_id: validator_suite
+category: data_validation
+split: holdout
+difficulty: 2
+prompt: Fix src/app.py so require_fields treats whitespace-only strings as missing
+  values.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+mutation_lineage: []
+required_capabilities:
+- planning
+min_test_budget: 1
+min_file_read_budget: 1

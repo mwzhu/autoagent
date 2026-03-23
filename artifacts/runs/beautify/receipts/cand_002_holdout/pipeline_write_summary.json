@@ -1,0 +1,45 @@
+{
+  "candidate_id": "cand_002_holdout",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:25.196478+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T08:27:25.156960+00:00",
+      "stderr": "F\n======================================================================\nFAIL: test_output (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpb70c9g71/worktree/tests/visible/test_visible.py\", line 17, in test_output\n    self.assertEqual(handle.read(), \"a:1\\nb:2\\n\")\nAssertionError: 'b:2\\na:1\\n' != 'a:1\\nb:2\\n'\n+ a:1\n  b:2\n- a:1\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:25.235759+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T08:27:25.197412+00:00",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/hidden -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:25.275170+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T08:27:25.236367+00:00",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [
+    "src/app.py"
+  ],
+  "final_submission": {
+    "rationale": "Builtin solver copied the known fix for a satisfied task.",
+    "task_id": "pipeline_write_summary"
+  },
+  "final_worktree_diff": "--- a/src/app.py\n+++ b/src/app.py\n@@ -1,4 +1,4 @@\n def write_summary(path, counts):\n     with open(path, \"w\", encoding=\"utf-8\") as handle:\n-        for key, value in counts.items():\n-            handle.write(f\"{key}:{value}\\n\")\n+        for key in sorted(counts):\n+            handle.write(f\"{key}:{counts[key]}\\n\")\n",
+  "hidden_result": "passed",
+  "integrity_flags": [],
+  "split": "holdout",
+  "task_id": "pipeline_write_summary",
+  "visible_passed": true
+}

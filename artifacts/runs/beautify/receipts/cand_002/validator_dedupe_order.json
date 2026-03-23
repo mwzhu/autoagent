@@ -1,0 +1,45 @@
+{
+  "candidate_id": "cand_002",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:24.241363+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T08:27:24.196966+00:00",
+      "stderr": "F\n======================================================================\nFAIL: test_unique (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmp0lvnzjzt/worktree/tests/visible/test_visible.py\", line 11, in test_unique\n    self.assertEqual(dedupe_tags([\"b\", \"a\", \"b\"]), [\"b\", \"a\"])\nAssertionError: Lists differ: ['a', 'b'] != ['b', 'a']\n\nFirst differing element 0:\n'a'\n'b'\n\n- ['a', 'b']\n+ ['b', 'a']\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:24.285486+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T08:27:24.242260+00:00",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/hidden -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:24.322357+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T08:27:24.286136+00:00",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [
+    "src/app.py"
+  ],
+  "final_submission": {
+    "rationale": "Builtin solver copied the known fix for a satisfied task.",
+    "task_id": "validator_dedupe_order"
+  },
+  "final_worktree_diff": "--- a/src/app.py\n+++ b/src/app.py\n@@ -1,2 +1,8 @@\n def dedupe_tags(tags):\n-    return sorted(set(tags))\n+    seen = set()\n+    result = []\n+    for tag in tags:\n+        if tag not in seen:\n+            seen.add(tag)\n+            result.append(tag)\n+    return result\n",
+  "hidden_result": "passed",
+  "integrity_flags": [],
+  "split": "guard",
+  "task_id": "validator_dedupe_order",
+  "visible_passed": true
+}

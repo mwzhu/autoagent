@@ -1,0 +1,125 @@
+{
+  "baseline": {
+    "candidate_id": "baseline_holdout",
+    "hidden_score": 0,
+    "task_results": [
+      {
+        "duration_seconds": 0.07880091667175293,
+        "hidden_result": "failed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/baseline_holdout/api_extract_items.json",
+        "split": "holdout",
+        "task_id": "api_extract_items",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.07980489730834961,
+        "hidden_result": "failed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/baseline_holdout/config_region_fallback.json",
+        "split": "holdout",
+        "task_id": "config_region_fallback",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.08478903770446777,
+        "hidden_result": "failed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/baseline_holdout/file_append_entry.json",
+        "split": "holdout",
+        "task_id": "file_append_entry",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.09877181053161621,
+        "hidden_result": "failed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/baseline_holdout/pipeline_write_summary.json",
+        "split": "holdout",
+        "task_id": "pipeline_write_summary",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.07516813278198242,
+        "hidden_result": "failed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/baseline_holdout/state_cache_store.json",
+        "split": "holdout",
+        "task_id": "state_cache_store",
+        "visible_passed": false
+      },
+      {
+        "duration_seconds": 0.07446503639221191,
+        "hidden_result": "failed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/baseline_holdout/validator_required_strip.json",
+        "split": "holdout",
+        "task_id": "validator_required_strip",
+        "visible_passed": false
+      }
+    ],
+    "visible_score": 0
+  },
+  "best": {
+    "candidate_id": "cand_002_holdout",
+    "hidden_score": 6,
+    "task_results": [
+      {
+        "duration_seconds": 0.10820889472961426,
+        "hidden_result": "passed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/cand_002_holdout/api_extract_items.json",
+        "split": "holdout",
+        "task_id": "api_extract_items",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.10775232315063477,
+        "hidden_result": "passed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/cand_002_holdout/config_region_fallback.json",
+        "split": "holdout",
+        "task_id": "config_region_fallback",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.11778092384338379,
+        "hidden_result": "passed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/cand_002_holdout/file_append_entry.json",
+        "split": "holdout",
+        "task_id": "file_append_entry",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.12173223495483398,
+        "hidden_result": "passed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/cand_002_holdout/pipeline_write_summary.json",
+        "split": "holdout",
+        "task_id": "pipeline_write_summary",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.1134788990020752,
+        "hidden_result": "passed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/cand_002_holdout/state_cache_store.json",
+        "split": "holdout",
+        "task_id": "state_cache_store",
+        "visible_passed": true
+      },
+      {
+        "duration_seconds": 0.10898423194885254,
+        "hidden_result": "passed",
+        "integrity_flags": [],
+        "receipt_path": "artifacts/runs/beautify/receipts/cand_002_holdout/validator_required_strip.json",
+        "split": "holdout",
+        "task_id": "validator_required_strip",
+        "visible_passed": true
+      }
+    ],
+    "visible_score": 6
+  },
+  "checkpoints": []
+}

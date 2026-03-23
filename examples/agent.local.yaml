@@ -1,0 +1,51 @@
+task_provider:
+  provider_type: openai_compatible
+  model: qwen2.5-coder:14b
+  base_url: http://localhost:11434/v1
+  temperature: 0.2
+  max_tokens: 4096
+meta_provider:
+  provider_type: anthropic
+  model: claude-3-7-sonnet-latest
+  api_key_env: ANTHROPIC_API_KEY
+  temperature: 0.2
+  max_tokens: 4096
+system_prompt: |
+  You are a coding repair agent.
+  Read the bug report, inspect the repository, edit source files under src/, and rerun tests.
+tools:
+  - name: read_files
+    enabled: true
+    permissions:
+      - read
+  - name: apply_patch
+    enabled: true
+    permissions:
+      - write:src
+orchestration:
+  planning: false
+  decomposition: false
+  self_check: true
+execution:
+  max_repair_loops: 3
+  test_budget: 3
+  file_read_budget: 12
+  context_budget: 12000
+guards:
+  forbidden_paths:
+    - tests/hidden
+    - tests/visible
+  forbidden_commands:
+    - pip
+    - curl
+  no_network: true
+  receipt_requirements:
+    - commands
+    - files_read
+    - files_written
+    - final_worktree_diff
+budget:
+  max_iterations: 100
+  max_accepts: 20
+  max_meta_api_cost_usd: 200
+  max_wall_clock_hours: 24

@@ -1,0 +1,37 @@
+{
+  "candidate_id": "cand_002",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:39:57.775228+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T04:39:57.734983+00:00",
+      "stderr": "F.\n======================================================================\nFAIL: test_case (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmp1yok14ud/worktree/tests/visible/test_visible.py\", line 14, in test_case\n    self.assertEqual(parse_bools(\"TRUE, false\"), [True, False])\nAssertionError: Lists differ: [False, False] != [True, False]\n\nFirst differing element 0:\nFalse\nTrue\n\n- [False, False]\n+ [True, False]\n\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:39:57.813000+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T04:39:57.775920+00:00",
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [
+    "src/app.py"
+  ],
+  "final_submission": {
+    "rationale": "Builtin solver copied the known fix for a satisfied task.",
+    "task_id": "parser_bool_tokens"
+  },
+  "final_worktree_diff": "--- a/src/app.py\n+++ b/src/app.py\n@@ -1,2 +1,3 @@\n def parse_bools(text):\n-    return [token == \"true\" for token in text.split(\",\")]\n+    truthy = {\"true\", \"yes\", \"1\"}\n+    return [token.strip().lower() in truthy for token in text.split(\",\") if token.strip()]\n",
+  "hidden_passed": null,
+  "integrity_flags": [],
+  "split": "train",
+  "task_id": "parser_bool_tokens",
+  "visible_passed": false
+}

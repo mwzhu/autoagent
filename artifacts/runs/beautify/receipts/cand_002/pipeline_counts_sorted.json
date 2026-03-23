@@ -1,0 +1,37 @@
+{
+  "candidate_id": "cand_002",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:23.250350+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T08:27:23.215008+00:00",
+      "stderr": ".F\n======================================================================\nFAIL: test_tie_breaker (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpgbq_7cqg/worktree/tests/visible/test_visible.py\", line 14, in test_tie_breaker\n    self.assertEqual(summarize_counts([\"b\", \"a\"]), [(\"a\", 1), (\"b\", 1)])\nAssertionError: Lists differ: [('b', 1), ('a', 1)] != [('a', 1), ('b', 1)]\n\nFirst differing element 0:\n('b', 1)\n('a', 1)\n\n- [('b', 1), ('a', 1)]\n+ [('a', 1), ('b', 1)]\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:23.284251+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T08:27:23.250950+00:00",
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [
+    "src/app.py"
+  ],
+  "final_submission": {
+    "rationale": "Builtin solver copied the known fix for a satisfied task.",
+    "task_id": "pipeline_counts_sorted"
+  },
+  "final_worktree_diff": "--- a/src/app.py\n+++ b/src/app.py\n@@ -2,4 +2,4 @@\n     counts = {}\n     for row in rows:\n         counts[row] = counts.get(row, 0) + 1\n-    return list(counts.items())\n+    return sorted(counts.items(), key=lambda item: (-item[1], item[0]))\n",
+  "hidden_result": "not_run",
+  "integrity_flags": [],
+  "split": "train",
+  "task_id": "pipeline_counts_sorted",
+  "visible_passed": true
+}

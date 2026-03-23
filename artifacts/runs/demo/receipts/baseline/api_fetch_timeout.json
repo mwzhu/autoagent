@@ -1,0 +1,27 @@
+{
+  "candidate_id": "baseline",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:39:53.421638+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T04:39:53.385281+00:00",
+      "stderr": "F.\n======================================================================\nFAIL: test_timeout (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpvvlg5skd/worktree/tests/visible/test_visible.py\", line 27, in test_timeout\n    self.assertEqual(session.calls[0][1], 5)\nAssertionError: None != 5\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [],
+  "final_submission": {
+    "rationale": "Configuration does not satisfy the task requirements.",
+    "task_id": "api_fetch_timeout"
+  },
+  "final_worktree_diff": "",
+  "hidden_passed": null,
+  "integrity_flags": [],
+  "split": "train",
+  "task_id": "api_fetch_timeout",
+  "visible_passed": false
+}

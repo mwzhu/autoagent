@@ -1,0 +1,52 @@
+task_provider:
+  provider_type: builtin
+  model: builtin-task
+  temperature: 0.2
+  max_tokens: 4096
+meta_provider:
+  provider_type: builtin
+  model: builtin-meta
+  temperature: 0.2
+  max_tokens: 4096
+system_prompt: 'You are a coding repair agent.
+
+  Read the bug report, inspect the repository, edit source files under src/, and rerun
+  tests.
+
+  '
+tools:
+- name: read_files
+  enabled: true
+  permissions:
+  - read
+- name: apply_patch
+  enabled: true
+  permissions:
+  - write:src
+orchestration:
+  planning: false
+  decomposition: false
+  self_check: true
+execution:
+  max_repair_loops: 3
+  test_budget: 3
+  file_read_budget: 12
+  context_budget: 12000
+guards:
+  forbidden_paths:
+  - tests/hidden
+  - tests/visible
+  forbidden_commands:
+  - pip
+  - curl
+  no_network: true
+  receipt_requirements:
+  - commands
+  - files_read
+  - files_written
+  - final_worktree_diff
+budget:
+  max_iterations: 6
+  max_accepts: 2
+  max_meta_api_cost_usd: 0
+  max_wall_clock_hours: 1

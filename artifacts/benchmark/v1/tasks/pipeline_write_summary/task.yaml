@@ -1,0 +1,14 @@
+task_id: pipeline_write_summary
+repo_id: data_pipeline
+category: file_io
+split: holdout
+difficulty: 2
+prompt: Fix src/app.py so write_summary writes output sorted by key for stable snapshots.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+mutation_lineage: []
+required_capabilities:
+- planning
+min_test_budget: 1
+min_file_read_budget: 1

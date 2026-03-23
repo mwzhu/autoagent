@@ -1,0 +1,45 @@
+{
+  "candidate_id": "cand_002",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:23.551296+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T08:27:23.513303+00:00",
+      "stderr": "F\n======================================================================\nFAIL: test_post (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpa8yh3k3n/worktree/tests/visible/test_visible.py\", line 22, in test_post\n    self.assertIn(\"json\", session.last_kwargs)\nAssertionError: 'json' not found in {'data': {'x': 1}}\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:23.587677+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T08:27:23.551885+00:00",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/hidden -p 'test_*.py'",
+      "end_time": "2026-03-20T08:27:23.628744+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T08:27:23.588299+00:00",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [
+    "src/app.py"
+  ],
+  "final_submission": {
+    "rationale": "Builtin solver copied the known fix for a satisfied task.",
+    "task_id": "api_post_json"
+  },
+  "final_worktree_diff": "--- a/src/app.py\n+++ b/src/app.py\n@@ -3,4 +3,4 @@\n \n \n def create_item(session, base_url, payload):\n-    return session.post(build_url(base_url, \"/items\"), data=payload)\n+    return session.post(build_url(base_url, \"/items\"), json=payload)\n",
+  "hidden_result": "passed",
+  "integrity_flags": [],
+  "split": "guard",
+  "task_id": "api_post_json",
+  "visible_passed": true
+}

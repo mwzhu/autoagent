@@ -1,0 +1,45 @@
+{
+  "candidate_id": "cand_001",
+  "commands": [
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:39:56.213109+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-20T04:39:56.176774+00:00",
+      "stderr": "F.\n======================================================================\nFAIL: test_case (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpif35e017/worktree/tests/visible/test_visible.py\", line 14, in test_case\n    self.assertEqual(dispatch([\"STATUS\"]), \"ok\")\nAssertionError: 'unknown' != 'ok'\n- unknown\n+ ok\n\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/visible -p 'test_*.py'",
+      "end_time": "2026-03-20T04:39:56.249236+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T04:39:56.213894+00:00",
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "command": "python -m unittest discover -s tests/hidden -p 'test_*.py'",
+      "end_time": "2026-03-20T04:39:56.287185+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-20T04:39:56.250100+00:00",
+      "stderr": ".\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [
+    "src/app.py"
+  ],
+  "files_written": [
+    "src/app.py"
+  ],
+  "final_submission": {
+    "rationale": "Builtin solver copied the known fix for a satisfied task.",
+    "task_id": "cli_dispatch_case"
+  },
+  "final_worktree_diff": "--- a/src/app.py\n+++ b/src/app.py\n@@ -1,5 +1,5 @@\n def dispatch(argv):\n-    command = argv[0]\n+    command = argv[0].lower()\n     if command == \"status\":\n         return \"ok\"\n     if command == \"reset\":\n",
+  "hidden_passed": null,
+  "integrity_flags": [],
+  "split": "guard",
+  "task_id": "cli_dispatch_case",
+  "visible_passed": false
+}

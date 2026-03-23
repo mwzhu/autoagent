@@ -1,0 +1,470 @@
+tasks:
+- task_id: parser_csv_blanks
+  repo_id: parser_lab
+  category: parsing
+  split: train
+  difficulty: 1
+  prompt: Fix src/app.py so parse_csv_ints skips blank comma-separated fields that
+    only contain whitespace.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: parser_bool_tokens
+  repo_id: parser_lab
+  category: parsing
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so parse_bools handles case-insensitive boolean tokens and
+    trims whitespace.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: parser_key_values
+  repo_id: parser_lab
+  category: parsing
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so parse_mapping ignores blank lines and trims keys and values
+    around '='.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 2
+- task_id: parser_semicolon_tokens
+  repo_id: parser_lab
+  category: parsing
+  split: train
+  difficulty: 1
+  prompt: Fix src/app.py so split_tokens drops blank semicolon-separated tokens that
+    only contain whitespace.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: config_port_strip
+  repo_id: config_loader
+  category: data_validation
+  split: train
+  difficulty: 1
+  prompt: Fix src/app.py so get_port falls back to the default when the config value
+    is blank or whitespace, and trims string values before converting them.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: config_enabled_services
+  repo_id: config_loader
+  category: parsing
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so enabled_services returns trimmed service names instead
+    of splitting a string into characters.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: file_write_report
+  repo_id: file_tools
+  category: file_io
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so write_report creates parent directories before writing
+    the file.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: file_count_nonempty
+  repo_id: file_tools
+  category: file_io
+  split: train
+  difficulty: 1
+  prompt: Fix src/app.py so count_nonempty_lines skips lines that only contain whitespace.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: cli_sum_args
+  repo_id: cli_tools
+  category: cli_behavior
+  split: train
+  difficulty: 1
+  prompt: Fix src/app.py so sum_main ignores the program name when argv includes it.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: cli_missing_name
+  repo_id: cli_tools
+  category: cli_behavior
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so greet_main returns exit code 2 when the name argument
+    is missing.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: cli_upper_stdin
+  repo_id: cli_tools
+  category: cli_behavior
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so upper_main falls back to stdin when no argument is provided.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - decomposition
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: state_push_event
+  repo_id: state_store
+  category: state_handling
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so push_event does not reuse a shared default list between
+    calls.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: state_snapshot_copy
+  repo_id: state_store
+  category: state_handling
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so snapshot returns a copy of the state dictionary instead
+    of the original object.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - decomposition
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: api_build_url
+  repo_id: api_client
+  category: api_client_mocking
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so build_url joins base URLs and paths with exactly one slash.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: api_fetch_timeout
+  repo_id: api_client
+  category: api_client_mocking
+  split: train
+  difficulty: 3
+  prompt: Fix src/app.py so fetch_user passes a timeout to the session.get call.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: validator_email_strip
+  repo_id: validator_suite
+  category: data_validation
+  split: train
+  difficulty: 1
+  prompt: Fix src/app.py so normalize_email trims whitespace before normalizing the
+    value.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: validator_age_numeric
+  repo_id: validator_suite
+  category: data_validation
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so validate_age accepts numeric strings by converting them
+    to integers before comparison.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: pipeline_skip_comments
+  repo_id: data_pipeline
+  category: parsing
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so parse_rows skips comment lines even when they begin with
+    whitespace.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: pipeline_counts_sorted
+  repo_id: data_pipeline
+  category: state_handling
+  split: train
+  difficulty: 3
+  prompt: Fix src/app.py so summarize_counts returns items sorted by descending count
+    and then by key.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - decomposition
+  min_test_budget: 2
+  min_file_read_budget: 1
+- task_id: parser_pipe_fields
+  repo_id: parser_lab
+  category: parsing
+  split: train
+  difficulty: 2
+  prompt: Fix src/app.py so split_fields drops blank pipe-delimited fields after trimming.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: config_mode_none
+  repo_id: config_loader
+  category: data_validation
+  split: guard
+  difficulty: 2
+  prompt: Fix src/app.py so load_mode handles None values by falling back to 'prod'.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: file_read_records
+  repo_id: file_tools
+  category: file_io
+  split: guard
+  difficulty: 1
+  prompt: Fix src/app.py so read_records strips trailing newlines from each record.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - self_check
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: cli_dispatch_case
+  repo_id: cli_tools
+  category: cli_behavior
+  split: guard
+  difficulty: 2
+  prompt: Fix src/app.py so dispatch handles command names case-insensitively.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: state_reset_errors
+  repo_id: state_store
+  category: state_handling
+  split: guard
+  difficulty: 2
+  prompt: Fix src/app.py so reset_state clears the nested errors list as well as the
+    top-level status.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: api_post_json
+  repo_id: api_client
+  category: api_client_mocking
+  split: guard
+  difficulty: 3
+  prompt: Fix src/app.py so create_item posts JSON via the json= keyword instead of
+    data=.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - decomposition
+  min_test_budget: 1
+  min_file_read_budget: 2
+- task_id: validator_dedupe_order
+  repo_id: validator_suite
+  category: data_validation
+  split: guard
+  difficulty: 2
+  prompt: Fix src/app.py so dedupe_tags preserves the original order of tags.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - decomposition
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: config_region_fallback
+  repo_id: config_loader
+  category: data_validation
+  split: holdout
+  difficulty: 3
+  prompt: Fix src/app.py so resolve_region falls back to the default when the config
+    value is blank or whitespace.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: file_append_entry
+  repo_id: file_tools
+  category: file_io
+  split: holdout
+  difficulty: 2
+  prompt: Fix src/app.py so append_entry always writes one newline per appended entry
+    when the file already exists.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: state_cache_store
+  repo_id: state_store
+  category: state_handling
+  split: holdout
+  difficulty: 3
+  prompt: Fix src/app.py so get_or_create stores the computed value in the cache before
+    returning it.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: api_extract_items
+  repo_id: api_client
+  category: api_client_mocking
+  split: holdout
+  difficulty: 2
+  prompt: Fix src/app.py so extract_items returns an empty list when the response
+    has no data key.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: validator_required_strip
+  repo_id: validator_suite
+  category: data_validation
+  split: holdout
+  difficulty: 2
+  prompt: Fix src/app.py so require_fields treats whitespace-only strings as missing
+    values.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
+- task_id: pipeline_write_summary
+  repo_id: data_pipeline
+  category: file_io
+  split: holdout
+  difficulty: 2
+  prompt: Fix src/app.py so write_summary writes output sorted by key for stable snapshots.
+  visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+  hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+  expected_artifact: src/app.py
+  mutation_lineage: []
+  required_capabilities:
+  - planning
+  min_test_budget: 1
+  min_file_read_budget: 1
