@@ -16,6 +16,7 @@ from superagent.config import (
     OpenAIProviderConfig,
     ProviderConfig,
 )
+from superagent.models import ProviderUsage
 
 
 class ProviderError(RuntimeError):
@@ -46,7 +47,7 @@ def _http_json_request(
     url: str,
     payload: Dict[str, Any],
     headers: Dict[str, str],
-) -> Tuple[Dict[str, Any], float]:
+) -> Dict[str, Any]:
     request = urllib.request.Request(
         url,
         data=json.dumps(payload).encode("utf-8"),
@@ -63,7 +64,52 @@ def _http_json_request(
         raise ProviderError(str(exc)) from exc
     data = json.loads(body)
     assert isinstance(data, dict), "Provider response body must be a JSON object."
-    return data, 0.0
+    return data
+
+
+def _usage_from_response(data: Dict[str, Any], provider_type: str) -> ProviderUsage:
+    usage = data.get("usage", {})
+    prompt_tokens = 0
+    completion_tokens = 0
+    total_tokens = 0
+    cost_usd = 0.0
+    if isinstance(usage, dict):
+        prompt_tokens = int(
+            usage.get("prompt_tokens")
+            or usage.get("input_tokens")
+            or usage.get("prompt_token_count")
+            or 0
+        )
+        completion_tokens = int(
+            usage.get("completion_tokens")
+            or usage.get("output_tokens")
+            or usage.get("completion_token_count")
+            or 0
+        )
+        total_tokens = int(usage.get("total_tokens") or prompt_tokens + completion_tokens)
+        raw_cost = usage.get("cost_usd")
+        if raw_cost is None:
+            raw_cost = usage.get("cost")
+        if raw_cost is not None:
+            try:
+                cost_usd = float(raw_cost)
+            except (TypeError, ValueError):
+                cost_usd = 0.0
+    if provider_type == "openai_compatible":
+        cost_usd = 0.0
+    if provider_type != "openai_compatible":
+        top_level_cost = data.get("cost_usd", data.get("cost"))
+        if top_level_cost is not None:
+            try:
+                cost_usd = float(top_level_cost)
+            except (TypeError, ValueError):
+                pass
+    return ProviderUsage(
+        prompt_tokens=prompt_tokens,
+        completion_tokens=completion_tokens,
+        total_tokens=total_tokens,
+        cost_usd=cost_usd,
+    )
 
 
 class ProviderClient:
@@ -72,7 +118,7 @@ class ProviderClient:
     def __init__(self, config: ProviderConfig):
         self.config = config
 
-    def generate_json(self, system_prompt: str, user_prompt: str) -> Tuple[Dict[str, Any], float]:
+    def generate_json(self, system_prompt: str, user_prompt: str) -> Tuple[Dict[str, Any], ProviderUsage]:
         if isinstance(self.config, AnthropicProviderConfig):
             return self._anthropic_json(system_prompt, user_prompt, self.config)
         if isinstance(self.config, OpenAIProviderConfig):
@@ -88,7 +134,7 @@ class ProviderClient:
         system_prompt: str,
         user_prompt: str,
         config: AnthropicProviderConfig,
-    ) -> Tuple[Dict[str, Any], float]:
+    ) -> Tuple[Dict[str, Any], ProviderUsage]:
         api_key = os.environ.get(config.api_key_env)
         if not api_key:
             raise ProviderError("Missing Anthropic API key in {}".format(config.api_key_env))
@@ -104,10 +150,10 @@ class ProviderClient:
             "x-api-key": api_key,
             "anthropic-version": "2023-06-01",
         }
-        response, _ = _http_json_request("https://api.anthropic.com/v1/messages", payload, headers)
+        response = _http_json_request("https://api.anthropic.com/v1/messages", payload, headers)
         content = response["content"]
         text = "".join(part.get("text", "") for part in content if part.get("type") == "text")
-        return _extract_json_object(text), 0.0
+        return _extract_json_object(text), _usage_from_response(response, config.provider_type)
 
     def _openai_json(
         self,
@@ -115,16 +161,15 @@ class ProviderClient:
         user_prompt: str,
         config: OpenAIProviderConfig | OpenAICompatibleProviderConfig,
         response_format: bool,
-    ) -> Tuple[Dict[str, Any], float]:
-        base_url = config.base_url
-        if not base_url.endswith("/v1"):
-            base_url = base_url.rstrip("/")
+    ) -> Tuple[Dict[str, Any], ProviderUsage]:
+        base_url = config.base_url.rstrip("/")
         api_key = os.environ.get(config.api_key_env, "") if config.api_key_env else ""
         headers = {"content-type": "application/json"}
         if api_key:
             headers["authorization"] = "Bearer " + api_key
         payload = {
             "model": config.model,
+            "max_tokens": config.max_tokens,
             "temperature": config.temperature,
             "messages": [
                 {"role": "system", "content": system_prompt},
@@ -133,10 +178,10 @@ class ProviderClient:
         }
         if response_format:
             payload["response_format"] = {"type": "json_object"}
-        response, _ = _http_json_request(base_url + "/chat/completions", payload, headers)
+        response = _http_json_request(base_url + "/chat/completions", payload, headers)
         content = response["choices"][0]["message"]["content"]
         if isinstance(content, list):
             text = "".join(block.get("text", "") for block in content)
         else:
             text = str(content)
-        return _extract_json_object(text), 0.0
+        return _extract_json_object(text), _usage_from_response(response, config.provider_type)

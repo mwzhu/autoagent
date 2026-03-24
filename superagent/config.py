@@ -12,9 +12,6 @@ import yaml
 from superagent.models import ConfigChange
 
 
-ProviderType = Literal["anthropic", "openai", "openai_compatible", "builtin"]
-
-
 @dataclass
 class AnthropicProviderConfig:
     provider_type: Literal["anthropic"]
@@ -93,75 +90,132 @@ class GuardsConfig:
 
 
 @dataclass
-class BudgetConfig:
+class OptimizerConfig:
     max_iterations: int = 100
     max_accepts: int = 20
     max_meta_api_cost_usd: float = 200.0
     max_wall_clock_hours: float = 24.0
+    screening_sample_size: int = 8
+    archive_size: int = 10
+    rerun_borderline_accepts: bool = True
+    duplicate_retry_limit: int = 5
 
 
 @dataclass
-class AgentConfig:
-    task_provider: ProviderConfig
-    meta_provider: ProviderConfig
+class BuiltinAdapterConfig:
     system_prompt: str
     tools: List[ToolConfig] = field(default_factory=list)
     orchestration: OrchestrationConfig = field(default_factory=OrchestrationConfig)
     execution: ExecutionConfig = field(default_factory=ExecutionConfig)
+
+
+@dataclass
+class SimpleCoderAdapterConfig:
+    task_provider: ProviderConfig
+    system_prompt: str
+    tools: List[ToolConfig] = field(default_factory=list)
+    orchestration: OrchestrationConfig = field(default_factory=OrchestrationConfig)
+    execution: ExecutionConfig = field(default_factory=ExecutionConfig)
+
+
+@dataclass
+class MiniSweAgentAdapterConfig:
+    command: str
+    model: str
+    base_url: str
+    api_key_env: str = ""
+    instruction_prefix: str = ""
+    max_steps: int = 20
+    per_action_timeout_sec: int = 90
+    max_observation_chars: int = 12000
+    tool_mode: Literal["native", "text"] = "native"
+
+
+AdapterConfig = Union[BuiltinAdapterConfig, SimpleCoderAdapterConfig, MiniSweAgentAdapterConfig]
+
+
+@dataclass
+class AgentSection:
+    adapter: Literal["builtin", "simple_coder", "mini_swe_agent"]
+    config: AdapterConfig
+
+
+@dataclass
+class CodeBenchmarkEvalConfig:
+    benchmark_dir: str
+    min_train_delta_tasks: int = 1
+    max_guard_regression_tasks: int = 1
+
+
+@dataclass
+class DatasetEvalConfig:
+    dataset_path: str
+    scorer_type: Literal["exact_match", "python_function"] = "exact_match"
+    scorer_path: str = ""
+    scorer_function: str = ""
+    min_train_delta: float = 1.0
+    max_guard_regression: float = 1.0
+
+
+EvalConfig = Union[CodeBenchmarkEvalConfig, DatasetEvalConfig]
+
+
+@dataclass
+class EvalSection:
+    backend: Literal["code_benchmark", "dataset"]
+    config: EvalConfig
+
+
+@dataclass
+class RunConfig:
+    meta_provider: ProviderConfig
+    optimizer: OptimizerConfig
+    agent: AgentSection
+    eval: EvalSection
     guards: GuardsConfig = field(default_factory=GuardsConfig)
-    budget: BudgetConfig = field(default_factory=BudgetConfig)
 
     @classmethod
-    def from_dict(cls, data: Dict[str, Any]) -> "AgentConfig":
-        for key in ("task_provider", "meta_provider", "system_prompt", "tools", "orchestration", "execution", "guards", "budget"):
+    def from_dict(cls, data: Dict[str, Any]) -> "RunConfig":
+        for key in ("meta_provider", "optimizer", "agent", "eval", "guards"):
             assert key in data, "Missing config section: {}".format(key)
+        agent_section = data["agent"]
+        eval_section = data["eval"]
         return cls(
-            task_provider=load_provider_config(data["task_provider"]),
             meta_provider=load_provider_config(data["meta_provider"]),
-            system_prompt=data["system_prompt"],
-            tools=[ToolConfig(**tool) for tool in data["tools"]],
-            orchestration=OrchestrationConfig(**data["orchestration"]),
-            execution=ExecutionConfig(**data["execution"]),
+            optimizer=OptimizerConfig(**data["optimizer"]),
+            agent=AgentSection(
+                adapter=agent_section["adapter"],
+                config=load_adapter_config(agent_section["adapter"], agent_section["config"]),
+            ),
+            eval=EvalSection(
+                backend=eval_section["backend"],
+                config=load_eval_config(eval_section["backend"], eval_section["config"]),
+            ),
             guards=GuardsConfig(**data["guards"]),
-            budget=BudgetConfig(**data["budget"]),
         )
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
 
-    def clone(self) -> "AgentConfig":
-        return AgentConfig.from_dict(copy.deepcopy(self.to_dict()))
+    def clone(self) -> "RunConfig":
+        return RunConfig.from_dict(copy.deepcopy(self.to_dict()))
 
-    def apply_changes(self, changes: List[ConfigChange]) -> None:
+    def apply_agent_changes(self, changes: List[ConfigChange], allowed_paths: List[str]) -> None:
         data = self.to_dict()
+        agent_config = data["agent"]["config"]
         for change in changes:
-            assert change.path in MUTABLE_PATHS, "Unsupported mutation path: {}".format(change.path)
-            path = change.path.split(".")
-            cursor = data
-            for part in path[:-1]:
+            assert change.path in allowed_paths, "Unsupported mutation path: {}".format(change.path)
+            cursor = agent_config
+            parts = change.path.split(".")
+            for part in parts[:-1]:
                 cursor = cursor[part]
-            cursor[path[-1]] = change.value
-        mutated = AgentConfig.from_dict(data)
-        self.task_provider = mutated.task_provider
+            cursor[parts[-1]] = change.value
+        mutated = RunConfig.from_dict(data)
         self.meta_provider = mutated.meta_provider
-        self.system_prompt = mutated.system_prompt
-        self.tools = mutated.tools
-        self.orchestration = mutated.orchestration
-        self.execution = mutated.execution
+        self.optimizer = mutated.optimizer
+        self.agent = mutated.agent
+        self.eval = mutated.eval
         self.guards = mutated.guards
-        self.budget = mutated.budget
-
-
-MUTABLE_PATHS = {
-    "system_prompt",
-    "orchestration.planning",
-    "orchestration.decomposition",
-    "orchestration.self_check",
-    "execution.max_repair_loops",
-    "execution.test_budget",
-    "execution.file_read_budget",
-    "execution.context_budget",
-}
 
 
 def load_provider_config(data: Dict[str, Any]) -> ProviderConfig:
@@ -177,13 +231,62 @@ def load_provider_config(data: Dict[str, Any]) -> ProviderConfig:
     raise AssertionError("Unsupported provider type: {}".format(provider_type))
 
 
-def load_agent_config(path: Path) -> AgentConfig:
+def load_adapter_config(adapter: str, data: Dict[str, Any]) -> AdapterConfig:
+    if adapter == "builtin":
+        return BuiltinAdapterConfig(
+            system_prompt=data["system_prompt"],
+            tools=_load_tools(data.get("tools", [])),
+            orchestration=OrchestrationConfig(**data.get("orchestration", {})),
+            execution=ExecutionConfig(**data.get("execution", {})),
+        )
+    if adapter == "simple_coder":
+        return SimpleCoderAdapterConfig(
+            task_provider=load_provider_config(data["task_provider"]),
+            system_prompt=data["system_prompt"],
+            tools=_load_tools(data.get("tools", [])),
+            orchestration=OrchestrationConfig(**data.get("orchestration", {})),
+            execution=ExecutionConfig(**data.get("execution", {})),
+        )
+    if adapter == "mini_swe_agent":
+        return MiniSweAgentAdapterConfig(**data)
+    raise AssertionError("Unsupported adapter: {}".format(adapter))
+
+
+def load_eval_config(backend: str, data: Dict[str, Any]) -> EvalConfig:
+    if backend == "code_benchmark":
+        return CodeBenchmarkEvalConfig(**data)
+    if backend == "dataset":
+        return DatasetEvalConfig(**data)
+    raise AssertionError("Unsupported eval backend: {}".format(backend))
+
+
+def minimum_train_delta(eval_config: EvalConfig) -> float:
+    if isinstance(eval_config, CodeBenchmarkEvalConfig):
+        return float(eval_config.min_train_delta_tasks)
+    if isinstance(eval_config, DatasetEvalConfig):
+        return float(eval_config.min_train_delta)
+    raise AssertionError("Unsupported eval config: {}".format(type(eval_config).__name__))
+
+
+def maximum_guard_regression(eval_config: EvalConfig) -> float:
+    if isinstance(eval_config, CodeBenchmarkEvalConfig):
+        return float(eval_config.max_guard_regression_tasks)
+    if isinstance(eval_config, DatasetEvalConfig):
+        return float(eval_config.max_guard_regression)
+    raise AssertionError("Unsupported eval config: {}".format(type(eval_config).__name__))
+
+
+def load_run_config(path: Path) -> RunConfig:
     with path.open("r", encoding="utf-8") as handle:
         data = yaml.safe_load(handle)
-    assert isinstance(data, dict), "Agent config must be a mapping."
-    return AgentConfig.from_dict(data)
+    assert isinstance(data, dict), "Run config must be a mapping."
+    return RunConfig.from_dict(data)
 
 
-def save_agent_config(config: AgentConfig, path: Path) -> None:
+def save_run_config(config: RunConfig, path: Path) -> None:
     with path.open("w", encoding="utf-8") as handle:
         yaml.safe_dump(config.to_dict(), handle, sort_keys=False)
+
+
+def _load_tools(items: List[Dict[str, Any]]) -> List[ToolConfig]:
+    return [ToolConfig(**item) for item in items]

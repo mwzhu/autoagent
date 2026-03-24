@@ -13,6 +13,17 @@ class BenchmarkTests(unittest.TestCase):
             validation = validate_benchmark(benchmark_dir)
             self.assertEqual(validation["task_count"], 32)
             self.assertEqual(validation["valid_count"], 32)
+            self.assertTrue(
+                all(
+                    result["details"] == {
+                        "buggy_visible": "fail",
+                        "buggy_hidden": "fail",
+                        "fixed_visible": "pass",
+                        "fixed_hidden": "pass",
+                    }
+                    for result in validation["results"]
+                )
+            )
             tasks = load_tasks(benchmark_dir)
             splits = split_tasks(tasks)
             self.assertEqual(len(splits["train"]), 20)

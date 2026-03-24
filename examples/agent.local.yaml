@@ -1,36 +1,58 @@
-task_provider:
-  provider_type: openai_compatible
-  model: qwen2.5-coder:14b
-  base_url: http://localhost:11434/v1
-  temperature: 0.2
-  max_tokens: 4096
 meta_provider:
   provider_type: anthropic
   model: claude-3-7-sonnet-latest
   api_key_env: ANTHROPIC_API_KEY
   temperature: 0.2
   max_tokens: 4096
-system_prompt: |
-  You are a coding repair agent.
-  Read the bug report, inspect the repository, edit source files under src/, and rerun tests.
-tools:
-  - name: read_files
-    enabled: true
-    permissions:
-      - read
-  - name: apply_patch
-    enabled: true
-    permissions:
-      - write:src
-orchestration:
-  planning: false
-  decomposition: false
-  self_check: true
-execution:
-  max_repair_loops: 3
-  test_budget: 3
-  file_read_budget: 12
-  context_budget: 12000
+
+optimizer:
+  max_iterations: 100
+  max_accepts: 20
+  max_meta_api_cost_usd: 200
+  max_wall_clock_hours: 24
+  screening_sample_size: 8
+  archive_size: 10
+  rerun_borderline_accepts: true
+  duplicate_retry_limit: 5
+
+agent:
+  adapter: simple_coder
+  config:
+    task_provider:
+      provider_type: openai_compatible
+      model: qwen2.5-coder:14b
+      base_url: http://localhost:11434/v1
+      temperature: 0.2
+      max_tokens: 4096
+    system_prompt: |
+      You are a coding repair agent.
+      Read the bug report, inspect the repository, edit source files under src/, and rerun tests.
+    tools:
+      - name: read_files
+        enabled: true
+        permissions:
+          - read
+      - name: apply_patch
+        enabled: true
+        permissions:
+          - write:src
+    orchestration:
+      planning: false
+      decomposition: false
+      self_check: true
+    execution:
+      max_repair_loops: 3
+      test_budget: 3
+      file_read_budget: 12
+      context_budget: 12000
+
+eval:
+  backend: code_benchmark
+  config:
+    benchmark_dir: artifacts/benchmark/v1
+    min_train_delta_tasks: 1
+    max_guard_regression_tasks: 1
+
 guards:
   forbidden_paths:
     - tests/hidden
@@ -44,8 +66,3 @@ guards:
     - files_read
     - files_written
     - final_worktree_diff
-budget:
-  max_iterations: 100
-  max_accepts: 20
-  max_meta_api_cost_usd: 200
-  max_wall_clock_hours: 24

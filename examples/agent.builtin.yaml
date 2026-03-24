@@ -1,30 +1,49 @@
-task_provider:
-  provider_type: builtin
-  model: builtin-task
 meta_provider:
   provider_type: builtin
   model: builtin-meta
-system_prompt: |
-  You are a coding repair agent.
-  Read the bug report, inspect the repository, edit source files under src/, and rerun tests.
-tools:
-  - name: read_files
-    enabled: true
-    permissions:
-      - read
-  - name: apply_patch
-    enabled: true
-    permissions:
-      - write:src
-orchestration:
-  planning: false
-  decomposition: false
-  self_check: true
-execution:
-  max_repair_loops: 3
-  test_budget: 3
-  file_read_budget: 12
-  context_budget: 12000
+
+optimizer:
+  max_iterations: 6
+  max_accepts: 2
+  max_meta_api_cost_usd: 0
+  max_wall_clock_hours: 1
+  screening_sample_size: 8
+  archive_size: 10
+  rerun_borderline_accepts: true
+  duplicate_retry_limit: 5
+
+agent:
+  adapter: builtin
+  config:
+    system_prompt: |
+      You are a coding repair agent.
+      Read the bug report, inspect the repository, edit source files under src/, and rerun tests.
+    tools:
+      - name: read_files
+        enabled: true
+        permissions:
+          - read
+      - name: apply_patch
+        enabled: true
+        permissions:
+          - write:src
+    orchestration:
+      planning: false
+      decomposition: false
+      self_check: true
+    execution:
+      max_repair_loops: 3
+      test_budget: 3
+      file_read_budget: 12
+      context_budget: 12000
+
+eval:
+  backend: code_benchmark
+  config:
+    benchmark_dir: artifacts/benchmark/v1
+    min_train_delta_tasks: 1
+    max_guard_regression_tasks: 1
+
 guards:
   forbidden_paths:
     - tests/hidden
@@ -38,8 +57,3 @@ guards:
     - files_read
     - files_written
     - final_worktree_diff
-budget:
-  max_iterations: 6
-  max_accepts: 2
-  max_meta_api_cost_usd: 0
-  max_wall_clock_hours: 1

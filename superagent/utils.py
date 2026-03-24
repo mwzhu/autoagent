@@ -40,7 +40,7 @@ def snapshot_tree(root: Path) -> Dict[str, str]:
     snapshot = {}
     for path in sorted(root.rglob("*")):
         if path.is_file():
-            snapshot[str(path.relative_to(root))] = path.read_text(encoding="utf-8")
+            snapshot[str(path.relative_to(root))] = path.read_bytes().decode("utf-8", errors="surrogateescape")
     return snapshot
 
 
@@ -61,6 +61,15 @@ def diff_snapshots(before: Dict[str, str], after: Dict[str, str]) -> str:
         )
         lines.extend(diff)
     return "".join(lines)
+
+
+def changed_files(before: Dict[str, str], after: Dict[str, str]) -> Dict[str, str]:
+    changed: Dict[str, str] = {}
+    for relative_path in sorted(set(before) | set(after)):
+        if before.get(relative_path) == after.get(relative_path):
+            continue
+        changed[relative_path] = after.get(relative_path, "")
+    return changed
 
 
 def relative_file_list(root: Path) -> Dict[str, int]:

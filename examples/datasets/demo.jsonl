@@ -1,0 +1,3 @@
+{"id":"greet_train","split":"train","prompt":"Write exactly hello","expected_output":"hello"}
+{"id":"planet_guard","split":"guard","prompt":"Write exactly earth","expected_output":"earth"}
+{"id":"color_holdout","split":"holdout","prompt":"Write exactly blue","expected_output":"blue"}

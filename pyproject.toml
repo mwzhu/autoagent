@@ -15,5 +15,8 @@ dependencies = [
 [project.scripts]
 superagent = "superagent.cli:main"
 
-[tool.setuptools]
-packages = ["superagent"]
+[tool.setuptools.packages.find]
+include = ["superagent*"]
+
+[tool.setuptools.package-data]
+superagent = ["prompts/*.md"]
