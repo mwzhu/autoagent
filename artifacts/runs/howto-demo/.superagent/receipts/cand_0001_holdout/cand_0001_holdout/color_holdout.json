@@ -1,0 +1,33 @@
+{
+  "attempt_id": "cand_0001_holdout",
+  "candidate_id": "cand_0001_holdout",
+  "commands": [
+    {
+      "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+      "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/cand_0001_holdout/repo",
+      "end_time": "2026-03-24T21:12:06.881542+00:00",
+      "exit_code": 0,
+      "start_time": "2026-03-24T21:12:06.853669+00:00",
+      "stderr": "",
+      "stdout": ""
+    }
+  ],
+  "files_read": [],
+  "files_written": [
+    "output/response.txt",
+    "repo/.runtime-temp.txt"
+  ],
+  "final_submission": {
+    "passed": true,
+    "task_id": "color_holdout"
+  },
+  "final_worktree_diff": "--- a/output/response.txt\n+++ b/output/response.txt\n@@ -0,0 +1 @@\n+output/response.txt--- a/repo/.runtime-temp.txt\n+++ b/repo/.runtime-temp.txt\n@@ -0,0 +1 @@\n+repo/.runtime-temp.txt",
+  "hidden_result": "passed",
+  "integrity_flags": [],
+  "mismatch_summary": "",
+  "split": "holdout",
+  "stderr_summary": "",
+  "stdout_summary": "",
+  "task_id": "color_holdout",
+  "visible_passed": true
+}

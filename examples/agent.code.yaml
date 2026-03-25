@@ -1,0 +1,33 @@
+agent:
+  repo_root: ../tests/fixtures/agent_repo
+  run_command: python agent.py
+  install_command: python install_fixture.py
+  entry_contract:
+    input_file: task.json
+    output_mode: workspace
+  mutation_boundary:
+    type: full_repo
+
+eval:
+  backend: code_benchmark
+  benchmark_dir: ../artifacts/benchmark/v1
+  min_train_delta_tasks: 1
+  max_guard_regression_tasks: 1
+
+policy:
+  screening_sample_size: 4
+  archive_size: 5
+  rerun_borderline_accepts: true
+  max_evaluations: 20
+  max_accepts: 10
+  max_task_cost_usd: 100
+  max_wall_clock_hours: 1
+
+guards:
+  forbidden_commands:
+    - curl
+  no_network: true
+  receipt_requirements:
+    - commands
+    - files_written
+    - final_worktree_diff

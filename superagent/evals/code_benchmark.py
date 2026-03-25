@@ -2,10 +2,7 @@
 
 from __future__ import annotations
 
-import shlex
 import shutil
-import subprocess
-import sys
 import tempfile
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -13,10 +10,10 @@ from typing import Dict, List, Tuple
 import yaml
 
 from superagent.benchmark_definitions import DEFAULT_TASK_DEFINITIONS
-from superagent.config import CodeBenchmarkEvalConfig, EvalConfig
+from superagent.config import CodeBenchmarkEvalConfig, EntryContractConfig, EvalConfig
 from superagent.evals.base import EvalBackend
-from superagent.models import AgentResult, AgentRunInput, CommandRecord, EvalTask, TaskResult
-from superagent.utils import copytree, ensure_dir, now_iso
+from superagent.models import CommandRecord, EvalTask, TaskResult
+from superagent.utils import copytree, ensure_dir, run_shell_command, summarize_text
 
 
 VISIBLE_CMD = "python -m unittest discover -s tests/visible -p 'test_*.py'"
@@ -42,15 +39,18 @@ class CodeBenchmarkBackend(EvalBackend):
                     difficulty=data["difficulty"],
                     prompt=data["prompt"],
                     split=data["split"],
-                    mutation_lineage=data.get("mutation_lineage", []),
-                    required_capabilities=data.get("required_capabilities", []),
-                    min_test_budget=data.get("min_test_budget", 1),
-                    min_file_read_budget=data.get("min_file_read_budget", 1),
-                    task_dir=str(task_dir),
+                    public_fields={
+                        "repo_id": data["repo_id"],
+                        "category": data["category"],
+                        "difficulty": data["difficulty"],
+                        "visible_test_cmd": data["visible_test_cmd"],
+                        "required_capabilities": list(data.get("required_capabilities", [])),
+                        **dict(data.get("public_fields", {})),
+                    },
                     metadata={
+                        "task_dir": str(task_dir),
                         "visible_test_cmd": data["visible_test_cmd"],
                         "hidden_test_cmd": data["hidden_test_cmd"],
-                        "fixed_dir": str(task_dir / "fixed"),
                     },
                 )
             )
@@ -62,62 +62,45 @@ class CodeBenchmarkBackend(EvalBackend):
             grouped[task.split].append(task)
         return grouped
 
-    def prepare_run(self, task: EvalTask, candidate_id: str, output_dir: Path) -> AgentRunInput:
-        task_dir = Path(task.task_dir)
-        working_dir = output_dir / "workspaces" / candidate_id / task.task_id
-        artifacts_dir = output_dir / "adapter_artifacts" / candidate_id / task.task_id
-        _copy_task_workspace(task_dir, working_dir)
-        ensure_dir(artifacts_dir)
-        prompt = (
-            task.prompt.rstrip()
-            + "\nEdit source files under src/ only."
-            + "\nVisible tests are available under tests/visible."
-            + "\nRun visible tests with: {}.".format(task.metadata["visible_test_cmd"])
-        )
-        metadata = dict(task.metadata)
-        metadata.update(
-            {
-                "required_capabilities": list(task.required_capabilities),
-                "min_test_budget": task.min_test_budget,
-                "min_file_read_budget": task.min_file_read_budget,
-            }
-        )
-        return AgentRunInput(
-            task_id=task.task_id,
-            prompt=prompt,
-            working_dir=working_dir,
-            artifacts_dir=artifacts_dir,
-            budget_steps=0,
-            metadata=metadata,
-        )
+    def public_task_payload(self, task: EvalTask) -> Dict[str, object]:
+        payload: Dict[str, object] = {
+            "task_id": task.task_id,
+            "split": task.split,
+            "prompt": task.prompt,
+        }
+        payload.update(task.public_fields)
+        return payload
+
+    def prepare_task_workspace(self, task: EvalTask, workspace_dir: Path) -> None:
+        task_dir = Path(str(task.metadata["task_dir"]))
+        _copy_task_workspace(task_dir, workspace_dir)
 
     def score_task(
         self,
         task: EvalTask,
-        run_input: AgentRunInput,
-        agent_result: AgentResult,
+        workspace_dir: Path,
+        output_dir: Path,
+        entry_contract: EntryContractConfig,
+        command_records: List[CommandRecord],
+        changed_files: List[str],
         evaluate_hidden: bool,
     ) -> TaskResult:
-        integrity_flags = list(agent_result.integrity_flags)
-        commands: List[CommandRecord] = []
-        if any("/tests/" in path or path.startswith("tests/") for path in agent_result.files_written):
-            integrity_flags.append("blocking:test_edit_attempt")
-        for path in agent_result.files_written:
-            if not path.replace("\\", "/").startswith("src/"):
-                integrity_flags.append("blocking:write_outside_src:" + path.replace("\\", "/"))
-        if any("tests/hidden" in path for path in agent_result.files_read):
-            integrity_flags.append("blocking:hidden_path_read")
+        del output_dir
+        assert entry_contract.output_mode == "workspace", "Code benchmark scoring requires output_mode=workspace."
+        integrity_flags = list(_integrity_flags_for_changed_files(changed_files))
+        scoring_commands: List[CommandRecord] = []
         visible_passed = False
         hidden_result = "not_run"
         if not any(flag.startswith("blocking:") for flag in integrity_flags):
-            visible = run_benchmark_command(str(task.metadata["visible_test_cmd"]), run_input.working_dir)
-            commands.append(visible)
+            visible = run_shell_command(str(task.metadata["visible_test_cmd"]), workspace_dir)
+            scoring_commands.append(visible)
             visible_passed = visible.exit_code == 0
             if evaluate_hidden:
-                hidden = self._run_hidden(task, run_input.working_dir)
-                commands.append(hidden)
+                hidden = self._run_hidden(task, workspace_dir)
+                scoring_commands.append(hidden)
                 hidden_result = "passed" if hidden.exit_code == 0 else "failed"
         passed = visible_passed if task.split == "train" else hidden_result == "passed"
+        all_commands = list(command_records) + scoring_commands
         return TaskResult(
             task_id=task.task_id,
             split=task.split,
@@ -126,8 +109,10 @@ class CodeBenchmarkBackend(EvalBackend):
             visible_passed=visible_passed,
             hidden_result=hidden_result,
             integrity_flags=sorted(set(integrity_flags)),
-            commands=commands,
-            task_cost_usd=agent_result.cost_usd,
+            commands=all_commands,
+            changed_files=changed_files,
+            stdout_summary=_summarize_commands(all_commands, "stdout"),
+            stderr_summary=_summarize_commands(all_commands, "stderr"),
         )
 
     def aggregate(self, results: List[TaskResult], split: str, eval_config: EvalConfig) -> float:
@@ -140,16 +125,17 @@ class CodeBenchmarkBackend(EvalBackend):
         assert isinstance(eval_config, CodeBenchmarkEvalConfig), "CodeBenchmarkBackend requires CodeBenchmarkEvalConfig."
         return validate_benchmark(Path(eval_config.benchmark_dir))
 
-    def _run_hidden(self, task: EvalTask, working_dir: Path) -> CommandRecord:
-        task_dir = Path(task.task_dir)
+    def _run_hidden(self, task: EvalTask, workspace_dir: Path) -> CommandRecord:
+        task_dir = Path(str(task.metadata["task_dir"]))
         with tempfile.TemporaryDirectory() as tmp_root:
             eval_dir = Path(tmp_root) / "hidden_eval"
-            copytree(working_dir, eval_dir)
+            copytree(workspace_dir, eval_dir)
             hidden_src = task_dir / "buggy" / "tests" / "hidden"
             hidden_dst = eval_dir / "tests" / "hidden"
             ensure_dir(hidden_dst.parent)
             shutil.copytree(hidden_src, hidden_dst)
-            return run_benchmark_command(str(task.metadata["hidden_test_cmd"]), eval_dir)
+            return run_shell_command(str(task.metadata["hidden_test_cmd"]), eval_dir)
+
 
 def default_benchmark_dir(root: Path) -> Path:
     return root / "artifacts" / "benchmark" / "v1"
@@ -185,10 +171,7 @@ def build_benchmark(output_dir: Path, force: bool = False) -> Path:
             "visible_test_cmd": VISIBLE_CMD,
             "hidden_test_cmd": HIDDEN_CMD,
             "expected_artifact": "src/app.py",
-            "mutation_lineage": [],
             "required_capabilities": definition["required_capabilities"],
-            "min_test_budget": definition["min_test_budget"],
-            "min_file_read_budget": definition["min_file_read_budget"],
         }
         with (task_dir / "task.yaml").open("w", encoding="utf-8") as handle:
             yaml.safe_dump(task_metadata, handle, sort_keys=False)
@@ -198,30 +181,8 @@ def build_benchmark(output_dir: Path, force: bool = False) -> Path:
     return output_dir
 
 
-def run_benchmark_command(command: str, cwd: Path) -> CommandRecord:
-    start_time = now_iso()
-    argv = shlex.split(command)
-    if argv and argv[0] == "python":
-        argv[0] = sys.executable
-    completed = subprocess.run(
-        argv,
-        cwd=str(cwd),
-        capture_output=True,
-        text=True,
-    )
-    end_time = now_iso()
-    return CommandRecord(
-        command=command,
-        exit_code=completed.returncode,
-        stdout=completed.stdout,
-        stderr=completed.stderr,
-        start_time=start_time,
-        end_time=end_time,
-    )
-
-
 def validate_task(task: EvalTask) -> Tuple[bool, Dict[str, str]]:
-    task_dir = Path(task.task_dir)
+    task_dir = Path(str(task.metadata["task_dir"]))
     buggy_dir = task_dir / "buggy"
     fixed_dir = task_dir / "fixed"
     with tempfile.TemporaryDirectory() as tmp_root:
@@ -230,10 +191,10 @@ def validate_task(task: EvalTask) -> Tuple[bool, Dict[str, str]]:
         fixed_copy = tmp_root_path / "fixed"
         copytree(buggy_dir, buggy_copy)
         copytree(fixed_dir, fixed_copy)
-        buggy_visible = run_benchmark_command(str(task.metadata["visible_test_cmd"]), buggy_copy)
-        buggy_hidden = run_benchmark_command(str(task.metadata["hidden_test_cmd"]), buggy_copy)
-        fixed_visible = run_benchmark_command(str(task.metadata["visible_test_cmd"]), fixed_copy)
-        fixed_hidden = run_benchmark_command(str(task.metadata["hidden_test_cmd"]), fixed_copy)
+        buggy_visible = run_shell_command(str(task.metadata["visible_test_cmd"]), buggy_copy)
+        buggy_hidden = run_shell_command(str(task.metadata["hidden_test_cmd"]), buggy_copy)
+        fixed_visible = run_shell_command(str(task.metadata["visible_test_cmd"]), fixed_copy)
+        fixed_hidden = run_shell_command(str(task.metadata["hidden_test_cmd"]), fixed_copy)
     results = {
         "buggy_visible": "pass" if buggy_visible.exit_code == 0 else "fail",
         "buggy_hidden": "pass" if buggy_hidden.exit_code == 0 else "fail",
@@ -251,7 +212,7 @@ def validate_task(task: EvalTask) -> Tuple[bool, Dict[str, str]]:
 
 def validate_benchmark(benchmark_dir: Path) -> Dict[str, object]:
     backend = CodeBenchmarkBackend()
-    tasks = backend.load_tasks(CodeBenchmarkEvalConfig(benchmark_dir=str(benchmark_dir)))
+    tasks = backend.load_tasks(CodeBenchmarkEvalConfig(backend="code_benchmark", benchmark_dir=str(benchmark_dir)))
     results = []
     valid_count = 0
     for task in tasks:
@@ -274,9 +235,24 @@ def _selected_definitions() -> List[Dict[str, object]]:
     return train + guard + holdout
 
 
-def _copy_task_workspace(task_dir: Path, working_dir: Path) -> None:
-    if working_dir.exists():
-        shutil.rmtree(working_dir)
-    ensure_dir(working_dir)
-    shutil.copytree(task_dir / "buggy" / "src", working_dir / "src")
-    shutil.copytree(task_dir / "buggy" / "tests" / "visible", working_dir / "tests" / "visible")
+def _copy_task_workspace(task_dir: Path, workspace_dir: Path) -> None:
+    if workspace_dir.exists():
+        shutil.rmtree(workspace_dir)
+    ensure_dir(workspace_dir)
+    shutil.copytree(task_dir / "buggy" / "src", workspace_dir / "src")
+    shutil.copytree(task_dir / "buggy" / "tests" / "visible", workspace_dir / "tests" / "visible")
+
+
+def _integrity_flags_for_changed_files(changed_files: List[str]) -> List[str]:
+    flags: List[str] = []
+    for path in changed_files:
+        if path.startswith("workspace/tests/"):
+            flags.append("blocking:test_edit_attempt")
+        elif path.startswith("workspace/") and not path.startswith("workspace/src/"):
+            flags.append("blocking:write_outside_workspace:" + path)
+    return flags
+
+
+def _summarize_commands(commands: List[CommandRecord], field_name: str) -> str:
+    values = [summarize_text(getattr(command, field_name), 200) for command in commands if getattr(command, field_name)]
+    return " | ".join(value for value in values if value)[:400]

@@ -1,0 +1,11 @@
+task_id: parser_pipe_fields
+repo_id: parser_lab
+category: parsing
+split: train
+difficulty: 2
+prompt: Fix src/app.py so split_fields drops blank pipe-delimited fields after trimming.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- self_check

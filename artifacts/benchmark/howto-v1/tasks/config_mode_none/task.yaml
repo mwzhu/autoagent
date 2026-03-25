@@ -1,0 +1,11 @@
+task_id: config_mode_none
+repo_id: config_loader
+category: data_validation
+split: guard
+difficulty: 2
+prompt: Fix src/app.py so load_mode handles None values by falling back to 'prod'.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- self_check

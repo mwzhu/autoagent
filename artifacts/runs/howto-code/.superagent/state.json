@@ -1,0 +1,26 @@
+{
+  "accept_count": 0,
+  "active_archive_ids": [
+    "baseline"
+  ],
+  "active_parent_id": "baseline",
+  "backend_name": "code_benchmark",
+  "config_path": "/Users/michaelzhu/Desktop/superagent/examples/agent.code.yaml",
+  "created_at": "2026-03-25T00:11:44.709514+00:00",
+  "cumulative_task_cost_usd": 0.0,
+  "cumulative_wall_clock_seconds": 1.5462009906768799,
+  "current_baseline_id": "baseline",
+  "evaluation_count": 1,
+  "imported_repo_root": "/Users/michaelzhu/Desktop/superagent/tests/fixtures/agent_repo",
+  "last_evaluated_candidate_fingerprint": "a9a888d0647ac5ed07e04f5af43112b32f60dc6928b70fea4f821c77494d7134",
+  "last_evaluated_candidate_id": "cand_0001",
+  "last_evaluated_workspace_hash": "74d3256dca5d156cf683cce4fcefe6946960671faa8f7cd3537128693bc894ea",
+  "next_candidate_number": 2,
+  "run_id": "howto-code",
+  "screening_sample_ids": [
+    "api_build_url",
+    "cli_sum_args",
+    "config_port_strip",
+    "file_count_nonempty"
+  ]
+}

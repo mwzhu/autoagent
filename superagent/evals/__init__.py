@@ -5,11 +5,13 @@ from superagent.evals.code_benchmark import (
     CodeBenchmarkBackend,
     build_benchmark,
     default_benchmark_dir,
-    run_benchmark_command,
     validate_benchmark,
     validate_task,
 )
 from superagent.evals.dataset import DatasetBackend
+from superagent.utils import run_shell_command
+
+run_benchmark_command = run_shell_command
 
 
 def get_eval_backend(name: str) -> EvalBackend:

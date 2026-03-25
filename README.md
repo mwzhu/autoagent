@@ -1,24 +1,15 @@
 # SuperAgent
 
-`SuperAgent` is a plug-and-play agent improvement harness.
+`SuperAgent` is a deterministic optimization harness for a bring-your-own agent repo.
 
-It now separates:
+You import a repo into a managed workspace, edit that live workspace directly with Codex, Claude Code, or by hand, and use SuperAgent for:
 
-- the meta-optimizer
-- the task agent adapter
-- the evaluation backend
-- receipts, storage, and reporting
-
-The repo ships three adapters:
-
-- `builtin` for smoke tests
-- `simple_coder` for the in-repo coding agent
-- `mini_swe_agent` for external subprocess-driven agents
-
-It also ships two evaluation backends:
-
-- `code_benchmark` for the custom coding benchmark
-- `dataset` for JSONL exact-match or Python-function scoring
+- deterministic evaluation
+- candidate history and receipts
+- baseline promotion via accept
+- baseline restore via revert
+- checkoutable accepted parents
+- holdout reporting
 
 ## Quick start
 
@@ -35,75 +26,74 @@ superagent benchmark build
 superagent benchmark validate
 ```
 
-Inspect a dry mutation proposal:
+Create a managed workspace from a repo config:
 
 ```bash
-superagent optimize dry-run --config examples/agent.builtin.yaml
+superagent agent init --config examples/agent.dataset.yaml --run-dir artifacts/runs/demo-agent
 ```
 
-Run the builtin smoke-test loop:
+From inside that managed workspace:
 
 ```bash
-superagent optimize run \
-  --config examples/agent.builtin.yaml \
-  --output-dir artifacts/runs/demo
+superagent agent status --json
+superagent agent diff
+superagent agent evaluate --json
+superagent agent accept
+superagent agent history --json
+superagent agent revert
 ```
 
-Run the simple local coding adapter:
+Generate a report with holdout results:
 
 ```bash
-superagent optimize run \
-  --config examples/agent.local.yaml \
-  --output-dir artifacts/runs/local-simple
-```
-
-Run the external `mini-swe-agent` adapter:
-
-```bash
-superagent optimize run \
-  --config examples/agent.miniswe.yaml \
-  --output-dir artifacts/runs/local-mini
-```
-
-Run the dataset demo:
-
-```bash
-superagent optimize run \
-  --config examples/dataset.demo.yaml \
-  --output-dir artifacts/runs/dataset-demo
-```
-
-Generate a markdown report:
-
-```bash
-superagent report generate --run-dir artifacts/runs/demo
+superagent report generate --run-dir artifacts/runs/demo-agent
 ```
 
 ## Config shape
 
-Top-level configs are now structured as:
-
 ```yaml
-meta_provider: {...}
-optimizer: {...}
 agent:
-  adapter: builtin|simple_coder|mini_swe_agent
-  config: {...}
+  repo_root: /path/to/repo
+  run_command: python agent.py
+  install_command: python install.py
+  entry_contract:
+    input_file: task.json
+    output_mode: files | workspace
+    output_file: response.txt
+  mutation_boundary:
+    type: full_repo | scoped_roots
+    mutable_roots: [src]
+    protected_roots: [secrets]
+
 eval:
-  backend: code_benchmark|dataset
-  config: {...}
-guards: {...}
+  backend: dataset | code_benchmark
+  # backend-specific fields live here
+
+policy:
+  screening_sample_size: 8
+  archive_size: 10
+  rerun_borderline_accepts: true
+  max_evaluations: 100
+  max_accepts: 20
+  max_task_cost_usd: 500
+  max_wall_clock_hours: 24
+
+guards:
+  forbidden_commands: [curl]
+  no_network: true
+  receipt_requirements: [commands, files_written, final_worktree_diff]
 ```
 
 See:
 
-- `examples/agent.builtin.yaml`
-- `examples/agent.local.yaml`
-- `examples/agent.miniswe.yaml`
-- `examples/dataset.demo.yaml`
+- `examples/agent.dataset.yaml`
+- `examples/agent.code.yaml`
 
-## Notes
+## Session model
 
-Builtin runs are harness smoke tests only.
-
-The `mini_swe_agent` adapter runs whatever subprocess command you configure and records stdout, stderr, exit code, changed files, and patch diffs. The bundled example uses the upstream `mini` CLI with config overrides for a local OpenAI-compatible endpoint.
+- `agent init` imports the original repo once and never edits it in place.
+- The managed workspace lives in `run-dir`, with session state under `.superagent/`.
+- `agent evaluate` snapshots the live repo, checks boundaries, detects duplicates, runs the deterministic screening/train/guard pipeline, and stores receipts plus failure summaries.
+- `agent accept` promotes the last eligible candidate to the new baseline commit.
+- `agent revert` restores the current baseline exactly.
+- `report generate` runs holdout for the current baseline and the best accepted candidate.

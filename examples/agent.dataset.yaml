@@ -1,0 +1,35 @@
+agent:
+  repo_root: ../tests/fixtures/agent_repo
+  run_command: python agent.py
+  install_command: python install_fixture.py
+  entry_contract:
+    input_file: task.json
+    output_mode: files
+    output_file: response.txt
+  mutation_boundary:
+    type: full_repo
+
+eval:
+  backend: dataset
+  dataset_path: datasets/demo.jsonl
+  scorer_type: exact_match
+  min_train_delta: 1
+  max_guard_regression: 1
+
+policy:
+  screening_sample_size: 1
+  archive_size: 3
+  rerun_borderline_accepts: true
+  max_evaluations: 20
+  max_accepts: 10
+  max_task_cost_usd: 100
+  max_wall_clock_hours: 1
+
+guards:
+  forbidden_commands:
+    - curl
+  no_network: true
+  receipt_requirements:
+    - commands
+    - files_written
+    - final_worktree_diff

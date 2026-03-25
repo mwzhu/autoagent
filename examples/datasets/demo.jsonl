@@ -1,3 +1,3 @@
-{"id":"greet_train","split":"train","prompt":"Write exactly hello","expected_output":"hello"}
-{"id":"planet_guard","split":"guard","prompt":"Write exactly earth","expected_output":"earth"}
-{"id":"color_holdout","split":"holdout","prompt":"Write exactly blue","expected_output":"blue"}
+{"id":"greet_train","split":"train","prompt":"Write exactly hello","expected_output":"hello","public_fields":{"public_answer":"hello","bad_answer":"wrong"}}
+{"id":"planet_guard","split":"guard","prompt":"Write exactly earth","expected_output":"earth","public_fields":{"public_answer":"earth","bad_answer":"wrong"}}
+{"id":"color_holdout","split":"holdout","prompt":"Write exactly blue","expected_output":"blue","public_fields":{"public_answer":"blue","bad_answer":"wrong"}}

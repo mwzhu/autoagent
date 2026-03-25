@@ -1,0 +1,138 @@
+{
+  "accepted": true,
+  "accepted_commit_id": "e5c8fdbc59db46ea08fbf9ccd6844aa6c2e64a35",
+  "attempt_ids": [
+    "cand_0001"
+  ],
+  "attempts": [
+    {
+      "attempt_id": "cand_0001",
+      "guard_score": 1.0,
+      "sample_score": 1.0,
+      "setup_commands": [
+        {
+          "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 install_fixture.py",
+          "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/cand_0001/repo",
+          "end_time": "2026-03-24T21:11:54.674719+00:00",
+          "exit_code": 0,
+          "start_time": "2026-03-24T21:11:54.648400+00:00",
+          "stderr": "",
+          "stdout": ""
+        }
+      ],
+      "task_cost_usd": 0.0,
+      "task_results": [
+        {
+          "changed_files": [
+            "output/response.txt",
+            "repo/.runtime-temp.txt"
+          ],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-24T21:11:54.704077+00:00",
+              "exit_code": 0,
+              "start_time": "2026-03-24T21:11:54.676527+00:00",
+              "stderr": "",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.030039072036743164,
+          "hidden_result": "not_run",
+          "integrity_flags": [],
+          "mismatch_summary": "",
+          "passed": true,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/cand_0001/cand_0001/greet_train.json",
+          "score": 1.0,
+          "split": "train",
+          "stderr_summary": "",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "greet_train",
+          "visible_passed": true
+        },
+        {
+          "changed_files": [
+            "output/response.txt",
+            "repo/.runtime-temp.txt"
+          ],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-24T21:11:54.734917+00:00",
+              "exit_code": 0,
+              "start_time": "2026-03-24T21:11:54.706568+00:00",
+              "stderr": "",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.030755996704101562,
+          "hidden_result": "passed",
+          "integrity_flags": [],
+          "mismatch_summary": "",
+          "passed": true,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/cand_0001/cand_0001/planet_guard.json",
+          "score": 1.0,
+          "split": "guard",
+          "stderr_summary": "",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "planet_guard",
+          "visible_passed": true
+        }
+      ],
+      "train_score": 1.0,
+      "wall_clock_seconds": 0.060829877853393555
+    }
+  ],
+  "candidate_fingerprint": "a9a888d0647ac5ed07e04f5af43112b32f60dc6928b70fea4f821c77494d7134",
+  "candidate_id": "cand_0001",
+  "confirmation_rerun_passed": false,
+  "confirmation_rerun_required": false,
+  "created_at": "2026-03-24T21:11:54.647631+00:00",
+  "diff_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/diffs/cand_0001.patch",
+  "failure_summary": {
+    "actionable_snippets": [],
+    "built_in_denylist": [
+      ".git/",
+      ".superagent/",
+      ".env",
+      ".env.*",
+      "*.pem",
+      "*.key",
+      "*.p12",
+      "*.pfx",
+      "id_rsa",
+      "id_ed25519",
+      ".superagent_hidden/",
+      ".superagent_control/",
+      ".superagent_eval_assets/",
+      ".superagent_gold/"
+    ],
+    "candidate_id": "cand_0001",
+    "failing_tasks": [],
+    "integrity_flags": [],
+    "parent_id": "baseline",
+    "receipt_references": [],
+    "regression_summary": {
+      "candidate_guard_score": 1.0,
+      "candidate_sample_score": 1.0,
+      "candidate_train_score": 1.0,
+      "parent_guard_score": 0.0,
+      "parent_sample_score": 0.0,
+      "parent_train_score": 0.0
+    }
+  },
+  "guard_score": 1.0,
+  "in_active_archive": true,
+  "integrity_flags": [],
+  "parent_id": "baseline",
+  "sample_score": 1.0,
+  "task_cost_usd": 0.0,
+  "train_score": 1.0,
+  "verdict": "eligible_for_accept",
+  "wall_clock_seconds": 0.060829877853393555,
+  "workspace_hash": "74d3256dca5d156cf683cce4fcefe6946960671faa8f7cd3537128693bc894ea"
+}

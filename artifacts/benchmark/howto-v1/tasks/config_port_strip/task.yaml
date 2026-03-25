@@ -1,0 +1,12 @@
+task_id: config_port_strip
+repo_id: config_loader
+category: data_validation
+split: train
+difficulty: 1
+prompt: Fix src/app.py so get_port falls back to the default when the config value
+  is blank or whitespace, and trims string values before converting them.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- self_check

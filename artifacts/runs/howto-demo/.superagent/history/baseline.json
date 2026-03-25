@@ -1,0 +1,161 @@
+{
+  "accepted": true,
+  "accepted_commit_id": "b75d53e00964e499de12d4820172912f0710e3ad",
+  "attempt_ids": [
+    "baseline"
+  ],
+  "attempts": [
+    {
+      "attempt_id": "baseline",
+      "guard_score": 0.0,
+      "sample_score": 0.0,
+      "setup_commands": [
+        {
+          "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 install_fixture.py",
+          "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/baseline/repo",
+          "end_time": "2026-03-24T21:11:54.534072+00:00",
+          "exit_code": 0,
+          "start_time": "2026-03-24T21:11:54.504234+00:00",
+          "stderr": "",
+          "stdout": ""
+        }
+      ],
+      "task_cost_usd": 0.0,
+      "task_results": [
+        {
+          "changed_files": [
+            "output/response.txt",
+            "repo/.runtime-temp.txt"
+          ],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/baseline/repo",
+              "end_time": "2026-03-24T21:11:54.564005+00:00",
+              "exit_code": 0,
+              "start_time": "2026-03-24T21:11:54.535741+00:00",
+              "stderr": "",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.03064584732055664,
+          "hidden_result": "not_run",
+          "integrity_flags": [],
+          "mismatch_summary": "expected=hello actual=wrong",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/baseline/baseline/greet_train.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "greet_train",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [
+            "output/response.txt",
+            "repo/.runtime-temp.txt"
+          ],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/baseline/repo",
+              "end_time": "2026-03-24T21:11:54.594184+00:00",
+              "exit_code": 0,
+              "start_time": "2026-03-24T21:11:54.566579+00:00",
+              "stderr": "",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.030086278915405273,
+          "hidden_result": "failed",
+          "integrity_flags": [],
+          "mismatch_summary": "expected=earth actual=wrong",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/baseline/baseline/planet_guard.json",
+          "score": 0.0,
+          "split": "guard",
+          "stderr_summary": "",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "planet_guard",
+          "visible_passed": false
+        }
+      ],
+      "train_score": 0.0,
+      "wall_clock_seconds": 0.06076407432556152
+    }
+  ],
+  "candidate_fingerprint": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "candidate_id": "baseline",
+  "confirmation_rerun_passed": false,
+  "confirmation_rerun_required": false,
+  "created_at": "2026-03-24T21:11:37.137162+00:00",
+  "diff_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/diffs/baseline.patch",
+  "failure_summary": {
+    "actionable_snippets": [
+      {
+        "snippet": "expected=hello actual=wrong",
+        "task_id": "greet_train"
+      },
+      {
+        "snippet": "expected=earth actual=wrong",
+        "task_id": "planet_guard"
+      }
+    ],
+    "built_in_denylist": [
+      ".git/",
+      ".superagent/",
+      ".env",
+      ".env.*",
+      "*.pem",
+      "*.key",
+      "*.p12",
+      "*.pfx",
+      "id_rsa",
+      "id_ed25519",
+      ".superagent_hidden/",
+      ".superagent_control/",
+      ".superagent_eval_assets/",
+      ".superagent_gold/"
+    ],
+    "candidate_id": "baseline",
+    "failing_tasks": [
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/baseline/baseline/greet_train.json",
+        "split": "train",
+        "task_id": "greet_train"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/baseline/baseline/planet_guard.json",
+        "split": "guard",
+        "task_id": "planet_guard"
+      }
+    ],
+    "integrity_flags": [],
+    "parent_id": "baseline",
+    "receipt_references": [
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/baseline/baseline/greet_train.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/baseline/baseline/planet_guard.json"
+    ],
+    "regression_summary": {
+      "candidate_guard_score": 0.0,
+      "candidate_sample_score": 0.0,
+      "candidate_train_score": 0.0,
+      "parent_guard_score": 0.0,
+      "parent_sample_score": 0.0,
+      "parent_train_score": 0.0
+    }
+  },
+  "guard_score": 0.0,
+  "in_active_archive": true,
+  "integrity_flags": [],
+  "parent_id": "baseline",
+  "sample_score": 0.0,
+  "task_cost_usd": 0.0,
+  "train_score": 0.0,
+  "verdict": "baseline",
+  "wall_clock_seconds": 0.06076407432556152,
+  "workspace_hash": "5e069d398a7f22750f8d06908f3c0869f03f943bdccf5f83a6663b708566e3ca"
+}

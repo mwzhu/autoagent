@@ -1,0 +1,12 @@
+task_id: api_extract_items
+repo_id: api_client
+category: api_client_mocking
+split: holdout
+difficulty: 2
+prompt: Fix src/app.py so extract_items returns an empty list when the response has
+  no data key.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- planning

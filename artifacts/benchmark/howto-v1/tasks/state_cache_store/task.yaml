@@ -1,0 +1,12 @@
+task_id: state_cache_store
+repo_id: state_store
+category: state_handling
+split: holdout
+difficulty: 3
+prompt: Fix src/app.py so get_or_create stores the computed value in the cache before
+  returning it.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- planning

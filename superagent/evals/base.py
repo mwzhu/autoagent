@@ -6,8 +6,8 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Dict, List
 
-from superagent.config import EvalConfig
-from superagent.models import AgentResult, AgentRunInput, EvalTask, TaskResult
+from superagent.config import EntryContractConfig, EvalConfig
+from superagent.models import CommandRecord, EvalTask, TaskResult
 
 
 class EvalBackend(ABC):
@@ -22,15 +22,22 @@ class EvalBackend(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def prepare_run(self, task: EvalTask, candidate_id: str, output_dir: Path) -> AgentRunInput:
+    def public_task_payload(self, task: EvalTask) -> Dict[str, object]:
+        raise NotImplementedError
+
+    @abstractmethod
+    def prepare_task_workspace(self, task: EvalTask, workspace_dir: Path) -> None:
         raise NotImplementedError
 
     @abstractmethod
     def score_task(
         self,
         task: EvalTask,
-        run_input: AgentRunInput,
-        agent_result: AgentResult,
+        workspace_dir: Path,
+        output_dir: Path,
+        entry_contract: EntryContractConfig,
+        command_records: List[CommandRecord],
+        changed_files: List[str],
         evaluate_hidden: bool,
     ) -> TaskResult:
         raise NotImplementedError

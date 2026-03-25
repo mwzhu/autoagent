@@ -1,0 +1,51 @@
+{
+  "attempt_id": "baseline",
+  "candidate_id": "baseline",
+  "commands": [
+    {
+      "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+      "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/repo",
+      "end_time": "2026-03-25T00:12:19.805974+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-25T00:12:19.771015+00:00",
+      "stderr": "unsupported task payload\n",
+      "stdout": ""
+    },
+    {
+      "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+      "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/.superagent_workspace",
+      "end_time": "2026-03-25T00:12:19.846838+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-25T00:12:19.806737+00:00",
+      "stderr": "E.\n======================================================================\nERROR: test_none (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_none\n    self.assertEqual(load_mode({\"mode\": None}), \"prod\")\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/.superagent_workspace/tests/visible/../../src/app.py\", line 2, in load_mode\n    return config.get(\"mode\", \"prod\").lower()\nAttributeError: 'NoneType' object has no attribute 'lower'\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (errors=1)\n",
+      "stdout": ""
+    },
+    {
+      "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/hidden -p 'test_*.py'",
+      "cwd": "/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpmxyg68ge/hidden_eval",
+      "end_time": "2026-03-25T00:12:19.889374+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-25T00:12:19.848607+00:00",
+      "stderr": "E\n======================================================================\nERROR: test_none (test_hidden.HiddenTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpmxyg68ge/hidden_eval/tests/hidden/test_hidden.py\", line 11, in test_none\n    self.assertEqual(load_mode({\"mode\": None}), \"prod\")\n  File \"/private/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpmxyg68ge/hidden_eval/tests/hidden/../../src/app.py\", line 2, in load_mode\n    return config.get(\"mode\", \"prod\").lower()\nAttributeError: 'NoneType' object has no attribute 'lower'\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [],
+  "files_written": [],
+  "final_submission": {
+    "passed": false,
+    "task_id": "config_mode_none"
+  },
+  "final_worktree_diff": "",
+  "hidden_result": "failed",
+  "integrity_flags": [
+    "blocking:run_command_failed",
+    "warning:missing_files_written"
+  ],
+  "mismatch_summary": "",
+  "split": "guard",
+  "stderr_summary": "unsupported task payload | E. ====================================================================== ERROR: test_none (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceba... | E ====================================================================== ERROR: test_none (test_hidden.HiddenTests) ------------------------------------------------------",
+  "stdout_summary": "",
+  "task_id": "config_mode_none",
+  "visible_passed": false
+}

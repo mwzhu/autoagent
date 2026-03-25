@@ -1,0 +1,12 @@
+{
+  "category": "data_validation",
+  "difficulty": 1,
+  "prompt": "Fix src/app.py so normalize_email trims whitespace before normalizing the value.",
+  "repo_id": "validator_suite",
+  "required_capabilities": [
+    "self_check"
+  ],
+  "split": "train",
+  "task_id": "validator_email_strip",
+  "visible_test_cmd": "python -m unittest discover -s tests/visible -p 'test_*.py'"
+}

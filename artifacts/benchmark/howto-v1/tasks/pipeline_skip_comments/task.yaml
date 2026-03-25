@@ -1,0 +1,12 @@
+task_id: pipeline_skip_comments
+repo_id: data_pipeline
+category: parsing
+split: train
+difficulty: 2
+prompt: Fix src/app.py so parse_rows skips comment lines even when they begin with
+  whitespace.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- planning

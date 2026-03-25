@@ -6,12 +6,22 @@ import argparse
 import json
 from pathlib import Path
 
-from superagent.adapters import get_agent_adapter
+from superagent.audit import heuristic_audit
 from superagent.benchmark import build_benchmark, default_benchmark_dir, validate_benchmark
-from superagent.config import load_run_config
-from superagent.mutator import propose_mutation
-from superagent.optimizer import run_optimization
 from superagent.report import generate_markdown_report
+from superagent.session import (
+    agent_accept,
+    agent_checkout_parent,
+    agent_diff,
+    agent_evaluate,
+    agent_failures,
+    agent_history,
+    agent_revert,
+    agent_status,
+    init_agent_session,
+    resolve_run_dir,
+)
+from superagent.storage import session_paths
 
 
 def main() -> None:
@@ -28,25 +38,52 @@ def main() -> None:
     validate_cmd = benchmark_sub.add_parser("validate")
     validate_cmd.add_argument("--benchmark", type=Path, default=default_benchmark_dir(Path.cwd()))
 
-    optimize = subparsers.add_parser("optimize")
-    optimize_sub = optimize.add_subparsers(dest="subcommand", required=True)
+    agent = subparsers.add_parser("agent")
+    agent_sub = agent.add_subparsers(dest="subcommand", required=True)
 
-    dry_run_cmd = optimize_sub.add_parser("dry-run")
-    dry_run_cmd.add_argument("--config", type=Path, required=True)
+    init_cmd = agent_sub.add_parser("init")
+    init_cmd.add_argument("--config", type=Path, required=True)
+    init_cmd.add_argument("--run-dir", type=Path)
 
-    run_cmd = optimize_sub.add_parser("run")
-    run_cmd.add_argument("--config", type=Path, required=True)
-    run_cmd.add_argument("--output-dir", type=Path, default=Path.cwd() / "artifacts" / "runs" / "default")
+    status_cmd = agent_sub.add_parser("status")
+    status_cmd.add_argument("--run-dir", type=Path)
+    status_cmd.add_argument("--json", action="store_true", required=True)
+
+    history_cmd = agent_sub.add_parser("history")
+    history_cmd.add_argument("--run-dir", type=Path)
+    history_cmd.add_argument("--json", action="store_true", required=True)
+
+    diff_cmd = agent_sub.add_parser("diff")
+    diff_cmd.add_argument("--run-dir", type=Path)
+
+    checkout_cmd = agent_sub.add_parser("checkout-parent")
+    checkout_cmd.add_argument("--run-dir", type=Path)
+    checkout_cmd.add_argument("--candidate-id", required=True)
+
+    evaluate_cmd = agent_sub.add_parser("evaluate")
+    evaluate_cmd.add_argument("--run-dir", type=Path)
+    evaluate_cmd.add_argument("--json", action="store_true", required=True)
+
+    failures_cmd = agent_sub.add_parser("failures")
+    failures_cmd.add_argument("--run-dir", type=Path)
+    failures_cmd.add_argument("--candidate-id", required=True)
+    failures_cmd.add_argument("--json", action="store_true", required=True)
+
+    accept_cmd = agent_sub.add_parser("accept")
+    accept_cmd.add_argument("--run-dir", type=Path)
+
+    revert_cmd = agent_sub.add_parser("revert")
+    revert_cmd.add_argument("--run-dir", type=Path)
 
     audit = subparsers.add_parser("audit")
     audit_sub = audit.add_subparsers(dest="subcommand", required=True)
     audit_run_cmd = audit_sub.add_parser("run")
-    audit_run_cmd.add_argument("--run-dir", type=Path, required=True)
+    audit_run_cmd.add_argument("--run-dir", type=Path)
 
     report = subparsers.add_parser("report")
     report_sub = report.add_subparsers(dest="subcommand", required=True)
     report_generate = report_sub.add_parser("generate")
-    report_generate.add_argument("--run-dir", type=Path, required=True)
+    report_generate.add_argument("--run-dir", type=Path)
 
     args = parser.parse_args()
 
@@ -57,25 +94,41 @@ def main() -> None:
     if args.command == "benchmark" and args.subcommand == "validate":
         print(json.dumps(validate_benchmark(args.benchmark), indent=2))
         return
-    if args.command == "optimize" and args.subcommand == "dry-run":
-        config = load_run_config(args.config)
-        adapter = get_agent_adapter(config.agent.adapter)
-        proposal, usage = propose_mutation(config, adapter, {})
-        print(json.dumps({"proposal": proposal.to_dict(), "meta_usage": usage.to_dict()}, indent=2))
-        return
-    if args.command == "optimize" and args.subcommand == "run":
-        config = load_run_config(args.config)
-        run_dir = run_optimization(config, args.config, args.output_dir)
+    if args.command == "agent" and args.subcommand == "init":
+        run_dir = init_agent_session(args.config, args.run_dir)
         print(json.dumps({"run_dir": str(run_dir)}, indent=2))
         return
+    if args.command == "agent" and args.subcommand == "status":
+        print(json.dumps(agent_status(resolve_run_dir(args.run_dir)), indent=2))
+        return
+    if args.command == "agent" and args.subcommand == "history":
+        print(json.dumps(agent_history(resolve_run_dir(args.run_dir)), indent=2))
+        return
+    if args.command == "agent" and args.subcommand == "diff":
+        print(agent_diff(resolve_run_dir(args.run_dir)))
+        return
+    if args.command == "agent" and args.subcommand == "checkout-parent":
+        print(json.dumps(agent_checkout_parent(resolve_run_dir(args.run_dir), args.candidate_id), indent=2))
+        return
+    if args.command == "agent" and args.subcommand == "evaluate":
+        print(json.dumps(agent_evaluate(resolve_run_dir(args.run_dir)), indent=2))
+        return
+    if args.command == "agent" and args.subcommand == "failures":
+        print(json.dumps(agent_failures(resolve_run_dir(args.run_dir), args.candidate_id), indent=2))
+        return
+    if args.command == "agent" and args.subcommand == "accept":
+        print(json.dumps(agent_accept(resolve_run_dir(args.run_dir)), indent=2))
+        return
+    if args.command == "agent" and args.subcommand == "revert":
+        print(json.dumps(agent_revert(resolve_run_dir(args.run_dir)), indent=2))
+        return
     if args.command == "audit" and args.subcommand == "run":
-        from superagent.audit import heuristic_audit
-
-        receipt_paths = sorted((args.run_dir / "receipts").rglob("*.json"))
-        print(json.dumps({"flags": heuristic_audit([Path(path) for path in receipt_paths])}, indent=2))
+        managed_run_dir = resolve_run_dir(args.run_dir)
+        receipt_paths = sorted(session_paths(managed_run_dir).receipts_dir.rglob("*.json"))
+        print(json.dumps({"flags": heuristic_audit(receipt_paths)}, indent=2))
         return
     if args.command == "report" and args.subcommand == "generate":
-        report_path = generate_markdown_report(args.run_dir)
+        report_path = generate_markdown_report(resolve_run_dir(args.run_dir))
         print(json.dumps({"report_path": str(report_path)}, indent=2))
         return
 

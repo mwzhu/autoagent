@@ -1,0 +1,42 @@
+{
+  "attempt_id": "baseline",
+  "candidate_id": "baseline",
+  "commands": [
+    {
+      "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+      "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/repo",
+      "end_time": "2026-03-25T00:12:18.740196+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-25T00:12:18.712633+00:00",
+      "stderr": "unsupported task payload\n",
+      "stdout": ""
+    },
+    {
+      "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+      "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/.superagent_workspace",
+      "end_time": "2026-03-25T00:12:18.779202+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-25T00:12:18.740936+00:00",
+      "stderr": "F.\n======================================================================\nFAIL: test_case (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_case\n    self.assertEqual(parse_bools(\"TRUE, false\"), [True, False])\nAssertionError: Lists differ: [False, False] != [True, False]\n\nFirst differing element 0:\nFalse\nTrue\n\n- [False, False]\n+ [True, False]\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [],
+  "files_written": [],
+  "final_submission": {
+    "passed": false,
+    "task_id": "parser_bool_tokens"
+  },
+  "final_worktree_diff": "",
+  "hidden_result": "not_run",
+  "integrity_flags": [
+    "blocking:run_command_failed",
+    "warning:missing_files_written"
+  ],
+  "mismatch_summary": "",
+  "split": "train",
+  "stderr_summary": "unsupported task payload | F. ====================================================================== FAIL: test_case (test_visible.VisibleTests) ---------------------------------------------------------------------- Tracebac...",
+  "stdout_summary": "",
+  "task_id": "parser_bool_tokens",
+  "visible_passed": false
+}

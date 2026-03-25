@@ -1,0 +1,7 @@
+{
+  "bad_answer": "wrong",
+  "prompt": "Write exactly blue",
+  "public_answer": "blue",
+  "split": "holdout",
+  "task_id": "color_holdout"
+}

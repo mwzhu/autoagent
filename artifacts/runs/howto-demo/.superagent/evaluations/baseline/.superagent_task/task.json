@@ -1,0 +1,7 @@
+{
+  "bad_answer": "wrong",
+  "prompt": "Write exactly earth",
+  "public_answer": "earth",
+  "split": "guard",
+  "task_id": "planet_guard"
+}

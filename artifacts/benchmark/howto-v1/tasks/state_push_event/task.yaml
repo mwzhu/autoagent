@@ -1,0 +1,12 @@
+task_id: state_push_event
+repo_id: state_store
+category: state_handling
+split: train
+difficulty: 2
+prompt: Fix src/app.py so push_event does not reuse a shared default list between
+  calls.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- self_check

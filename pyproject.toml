@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "superagent"
 version = "0.1.0"
-description = "A research-first self-improving coding-agent lab."
+description = "A deterministic BYO agent repo optimization harness."
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
@@ -17,6 +17,3 @@ superagent = "superagent.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["superagent*"]
-
-[tool.setuptools.package-data]
-superagent = ["prompts/*.md"]

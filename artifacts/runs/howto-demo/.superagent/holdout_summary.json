@@ -1,0 +1,76 @@
+{
+  "best_accepted": {
+    "blocking_flags": [],
+    "candidate_id": "cand_0001",
+    "score": 1.0,
+    "task_results": [
+      {
+        "changed_files": [
+          "output/response.txt",
+          "repo/.runtime-temp.txt"
+        ],
+        "commands": [
+          {
+            "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+            "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/cand_0001_holdout/repo",
+            "end_time": "2026-03-24T21:12:06.881542+00:00",
+            "exit_code": 0,
+            "start_time": "2026-03-24T21:12:06.853669+00:00",
+            "stderr": "",
+            "stdout": ""
+          }
+        ],
+        "duration_seconds": 0.03008413314819336,
+        "hidden_result": "passed",
+        "integrity_flags": [],
+        "mismatch_summary": "",
+        "passed": true,
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/cand_0001_holdout/cand_0001_holdout/color_holdout.json",
+        "score": 1.0,
+        "split": "holdout",
+        "stderr_summary": "",
+        "stdout_summary": "",
+        "task_cost_usd": 0.0,
+        "task_id": "color_holdout",
+        "visible_passed": true
+      }
+    ]
+  },
+  "current_baseline": {
+    "blocking_flags": [],
+    "candidate_id": "cand_0001",
+    "score": 1.0,
+    "task_results": [
+      {
+        "changed_files": [
+          "output/response.txt",
+          "repo/.runtime-temp.txt"
+        ],
+        "commands": [
+          {
+            "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+            "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/evaluations/cand_0001_holdout/repo",
+            "end_time": "2026-03-24T21:12:06.767367+00:00",
+            "exit_code": 0,
+            "start_time": "2026-03-24T21:12:06.739414+00:00",
+            "stderr": "",
+            "stdout": ""
+          }
+        ],
+        "duration_seconds": 0.03030991554260254,
+        "hidden_result": "passed",
+        "integrity_flags": [],
+        "mismatch_summary": "",
+        "passed": true,
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-demo/.superagent/receipts/cand_0001_holdout/cand_0001_holdout/color_holdout.json",
+        "score": 1.0,
+        "split": "holdout",
+        "stderr_summary": "",
+        "stdout_summary": "",
+        "task_cost_usd": 0.0,
+        "task_id": "color_holdout",
+        "visible_passed": true
+      }
+    ]
+  }
+}

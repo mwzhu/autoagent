@@ -1,0 +1,11 @@
+task_id: cli_dispatch_case
+repo_id: cli_tools
+category: cli_behavior
+split: guard
+difficulty: 2
+prompt: Fix src/app.py so dispatch handles command names case-insensitively.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- planning

@@ -1,0 +1,12 @@
+task_id: api_post_json
+repo_id: api_client
+category: api_client_mocking
+split: guard
+difficulty: 3
+prompt: Fix src/app.py so create_item posts JSON via the json= keyword instead of
+  data=.
+visible_test_cmd: python -m unittest discover -s tests/visible -p 'test_*.py'
+hidden_test_cmd: python -m unittest discover -s tests/hidden -p 'test_*.py'
+expected_artifact: src/app.py
+required_capabilities:
+- decomposition

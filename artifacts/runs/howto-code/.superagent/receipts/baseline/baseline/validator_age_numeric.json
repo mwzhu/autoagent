@@ -1,0 +1,42 @@
+{
+  "attempt_id": "baseline",
+  "candidate_id": "baseline",
+  "commands": [
+    {
+      "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+      "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/repo",
+      "end_time": "2026-03-25T00:12:19.413160+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-25T00:12:19.383628+00:00",
+      "stderr": "unsupported task payload\n",
+      "stdout": ""
+    },
+    {
+      "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+      "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/.superagent_workspace",
+      "end_time": "2026-03-25T00:12:19.455470+00:00",
+      "exit_code": 1,
+      "start_time": "2026-03-25T00:12:19.413940+00:00",
+      "stderr": ".E\n======================================================================\nERROR: test_string (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_string\n    self.assertTrue(validate_age(\"10\"))\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/baseline/.superagent_workspace/tests/visible/../../src/app.py\", line 2, in validate_age\n    return 0 <= value <= 130\nTypeError: '<=' not supported between instances of 'int' and 'str'\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (errors=1)\n",
+      "stdout": ""
+    }
+  ],
+  "files_read": [],
+  "files_written": [],
+  "final_submission": {
+    "passed": false,
+    "task_id": "validator_age_numeric"
+  },
+  "final_worktree_diff": "",
+  "hidden_result": "not_run",
+  "integrity_flags": [
+    "blocking:run_command_failed",
+    "warning:missing_files_written"
+  ],
+  "mismatch_summary": "",
+  "split": "train",
+  "stderr_summary": "unsupported task payload | .E ====================================================================== ERROR: test_string (test_visible.VisibleTests) ---------------------------------------------------------------------- Trace...",
+  "stdout_summary": "",
+  "task_id": "validator_age_numeric",
+  "visible_passed": false
+}

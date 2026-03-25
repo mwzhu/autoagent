@@ -1,0 +1,997 @@
+{
+  "accepted": false,
+  "accepted_commit_id": "",
+  "attempt_ids": [
+    "cand_0001"
+  ],
+  "attempts": [
+    {
+      "attempt_id": "cand_0001",
+      "guard_score": 0.0,
+      "sample_score": 0.0,
+      "setup_commands": [
+        {
+          "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 install_fixture.py",
+          "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+          "end_time": "2026-03-25T00:12:20.481609+00:00",
+          "exit_code": 0,
+          "start_time": "2026-03-25T00:12:20.449513+00:00",
+          "stderr": "",
+          "stdout": ""
+        }
+      ],
+      "task_cost_usd": 0.0,
+      "task_results": [
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:20.516188+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.484843+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:20.567429+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.517045+00:00",
+              "stderr": ".F\n======================================================================\nFAIL: test_slashes (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_slashes\n    self.assertEqual(build_url(\"https://api/\", \"/users\"), \"https://api/users\")\nAssertionError: 'https://api///users' != 'https://api/users'\n- https://api///users\n?             --\n+ https://api/users\n\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.08607792854309082,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/api_build_url.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .F ====================================================================== FAIL: test_slashes (test_visible.VisibleTests) ---------------------------------------------------------------------- Trace...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "api_build_url",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:20.605578+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.572712+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:20.653117+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.606440+00:00",
+              "stderr": ".E\n======================================================================\nERROR: test_program_name (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_program_name\n    self.assertEqual(sum_main([\"prog\", \"1\", \"2\"]), 3)\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/../../src/app.py\", line 2, in sum_main\n    return sum(int(value) for value in argv)\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/../../src/app.py\", line 2, in <genexpr>\n    return sum(int(value) for value in argv)\nValueError: invalid literal for int() with base 10: 'prog'\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (errors=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.08555984497070312,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_sum_args.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .E ====================================================================== ERROR: test_program_name (test_visible.VisibleTests) ----------------------------------------------------------------------...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "cli_sum_args",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:20.686012+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.657055+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:20.728134+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.686836+00:00",
+              "stderr": "F.\n======================================================================\nFAIL: test_blank (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_blank\n    self.assertEqual(get_port({\"port\": \"\"}), 8080)\nAssertionError: 0 != 8080\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07485532760620117,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/config_port_strip.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | F. ====================================================================== FAIL: test_blank (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceba...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "config_port_strip",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:20.761457+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.731649+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:20.805935+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.762198+00:00",
+              "stderr": "F\n======================================================================\nFAIL: test_simple (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 16, in test_simple\n    self.assertEqual(count_nonempty_lines(name), 2)\nAssertionError: 3 != 2\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07780098915100098,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/file_count_nonempty.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | F ====================================================================== FAIL: test_simple (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceba...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "file_count_nonempty",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:20.840222+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.809649+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:20.889720+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.841085+00:00",
+              "stderr": "F.\n======================================================================\nFAIL: test_timeout (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 27, in test_timeout\n    self.assertEqual(session.calls[0][1], 5)\nAssertionError: None != 5\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.08382391929626465,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/api_fetch_timeout.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | F. ====================================================================== FAIL: test_timeout (test_visible.VisibleTests) ---------------------------------------------------------------------- Trace...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "api_fetch_timeout",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:20.923238+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.893550+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:20.964049+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.923997+00:00",
+              "stderr": "F.\n======================================================================\nFAIL: test_missing (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_missing\n    self.assertEqual(greet_main([]), 2)\nAssertionError: 0 != 2\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07428288459777832,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_missing_name.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | F. ====================================================================== FAIL: test_missing (test_visible.VisibleTests) ---------------------------------------------------------------------- Trace...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "cli_missing_name",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:20.996975+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.967939+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.038915+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:20.997731+00:00",
+              "stderr": ".F\n======================================================================\nFAIL: test_stdin (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_stdin\n    self.assertEqual(upper_main([], \"hello\"), \"HELLO\")\nAssertionError: '' != 'HELLO'\n+ HELLO\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07488179206848145,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_upper_stdin.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .F ====================================================================== FAIL: test_stdin (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceba...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "cli_upper_stdin",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.071560+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.042786+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.111797+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.072341+00:00",
+              "stderr": ".F\n======================================================================\nFAIL: test_string (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 11, in test_string\n    self.assertEqual(enabled_services({\"enabled\": \"api,worker\"}), [\"api\", \"worker\"])\nAssertionError: Lists differ: ['a', 'p', 'i', ',', 'w', 'o', 'r', 'k', 'e', 'r'] != ['api', 'worker']\n\nFirst differing element 0:\n'a'\n'api'\n\nFirst list contains 8 additional elements.\nFirst extra element 2:\n'i'\n\n- ['a', 'p', 'i', ',', 'w', 'o', 'r', 'k', 'e', 'r']\n+ ['api', 'worker']\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07298898696899414,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/config_enabled_services.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .F ====================================================================== FAIL: test_string (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceb...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "config_enabled_services",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.145669+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.115972+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.190765+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.146396+00:00",
+              "stderr": "E\n======================================================================\nERROR: test_nested_path (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_nested_path\n    write_report(path, \"done\")\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/../../src/app.py\", line 5, in write_report\n    Path(path).write_text(text, encoding=\"utf-8\")\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py\", line 1275, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors) as f:\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py\", line 1242, in open\n    return io.open(self, mode, buffering, encoding, errors, newline,\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py\", line 1110, in _opener\n    return self._accessor.open(self, flags, mode)\nFileNotFoundError: [Errno 2] No such file or directory: '/var/folders/y_/0930jlzx23q1n6vhfqzmw00h0000gn/T/tmpjh4cjvev/reports/out.txt'\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (errors=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07881402969360352,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/file_write_report.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | E ====================================================================== ERROR: test_nested_path (test_visible.VisibleTests) ---------------------------------------------------------------------- T...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "file_write_report",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.223726+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.194530+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.263886+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.224450+00:00",
+              "stderr": "F.\n======================================================================\nFAIL: test_case (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_case\n    self.assertEqual(parse_bools(\"TRUE, false\"), [True, False])\nAssertionError: Lists differ: [False, False] != [True, False]\n\nFirst differing element 0:\nFalse\nTrue\n\n- [False, False]\n+ [True, False]\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07304024696350098,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_bool_tokens.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | F. ====================================================================== FAIL: test_case (test_visible.VisibleTests) ---------------------------------------------------------------------- Tracebac...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "parser_bool_tokens",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.296549+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.267813+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.336470+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.297294+00:00",
+              "stderr": ".E\n======================================================================\nERROR: test_whitespace_blank (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_whitespace_blank\n    self.assertEqual(parse_csv_ints(\"1, ,2\"), [1, 2])\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/../../src/app.py\", line 2, in parse_csv_ints\n    return [int(part.strip()) for part in text.split(\",\") if part]\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/../../src/app.py\", line 2, in <listcomp>\n    return [int(part.strip()) for part in text.split(\",\") if part]\nValueError: invalid literal for int() with base 10: ''\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (errors=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07272982597351074,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_csv_blanks.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .E ====================================================================== ERROR: test_whitespace_blank (test_visible.VisibleTests) ------------------------------------------------------------------...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "parser_csv_blanks",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.368269+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.340244+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.408433+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.369021+00:00",
+              "stderr": ".F\n======================================================================\nFAIL: test_spaces (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_spaces\n    self.assertEqual(parse_mapping(\"a = 1\\n b = 2 \"), {\"a\": \"1\", \"b\": \"2\"})\nAssertionError: {'a ': ' 1', ' b ': ' 2 '} != {'a': '1', 'b': '2'}\n- {' b ': ' 2 ', 'a ': ' 1'}\n+ {'a': '1', 'b': '2'}\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07177925109863281,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_key_values.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .F ====================================================================== FAIL: test_spaces (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceb...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "parser_key_values",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.441135+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.412592+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.480812+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.441986+00:00",
+              "stderr": ".F\n======================================================================\nFAIL: test_blank (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_blank\n    self.assertEqual(split_fields(\"a| |b\"), [\"a\", \"b\"])\nAssertionError: Lists differ: ['a', '', 'b'] != ['a', 'b']\n\nFirst differing element 1:\n''\n'b'\n\nFirst list contains 1 additional elements.\nFirst extra element 2:\n'b'\n\n- ['a', '', 'b']\n?       ----\n\n+ ['a', 'b']\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07233715057373047,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_pipe_fields.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .F ====================================================================== FAIL: test_blank (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceba...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "parser_pipe_fields",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.512714+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.484451+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.553085+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.513453+00:00",
+              "stderr": "E\n======================================================================\nERROR: test_visible (unittest.loader._FailedTest)\n----------------------------------------------------------------------\nImportError: Failed to import test module: test_visible\nTraceback (most recent call last):\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/loader.py\", line 436, in _find_test_path\n    module = self._get_module_from_name(name)\n  File \"/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/unittest/loader.py\", line 377, in _get_module_from_name\n    __import__(name)\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 6, in <module>\n    from app import split_tokens\nImportError: cannot import name 'split_tokens' from 'app' (/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/../../src/app.py)\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nFAILED (errors=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07226896286010742,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_semicolon_tokens.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | E ====================================================================== ERROR: test_visible (unittest.loader._FailedTest) ---------------------------------------------------------------------- Imp...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "parser_semicolon_tokens",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.584284+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.556720+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.624859+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.584982+00:00",
+              "stderr": ".F\n======================================================================\nFAIL: test_tie_breaker (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_tie_breaker\n    self.assertEqual(summarize_counts([\"b\", \"a\"]), [(\"a\", 1), (\"b\", 1)])\nAssertionError: Lists differ: [('b', 1), ('a', 1)] != [('a', 1), ('b', 1)]\n\nFirst differing element 0:\n('b', 1)\n('a', 1)\n\n- [('b', 1), ('a', 1)]\n+ [('a', 1), ('b', 1)]\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07180285453796387,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/pipeline_counts_sorted.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .F ====================================================================== FAIL: test_tie_breaker (test_visible.VisibleTests) ---------------------------------------------------------------------- T...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "pipeline_counts_sorted",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.656941+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.629029+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.697971+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.657802+00:00",
+              "stderr": "F.\n======================================================================\nFAIL: test_indented_comment (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_indented_comment\n    self.assertEqual(parse_rows(\"a\\n  #skip\\n b \"), [\"a\", \" b \"])\nAssertionError: Lists differ: ['a', '  #skip', ' b '] != ['a', ' b ']\n\nFirst differing element 1:\n'  #skip'\n' b '\n\nFirst list contains 1 additional elements.\nFirst extra element 2:\n' b '\n\n- ['a', '  #skip', ' b ']\n+ ['a', ' b ']\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07306289672851562,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/pipeline_skip_comments.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | F. ====================================================================== FAIL: test_indented_comment (test_visible.VisibleTests) -------------------------------------------------------------------...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "pipeline_skip_comments",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.731391+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.701828+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.773610+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.732203+00:00",
+              "stderr": "FF\n======================================================================\nFAIL: test_independent_calls (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 15, in test_independent_calls\n    self.assertEqual(push_event(\"second\"), [\"second\"])\nAssertionError: Lists differ: ['first', 'second'] != ['second']\n\nFirst differing element 0:\n'first'\n'second'\n\nFirst list contains 1 additional elements.\nFirst extra element 1:\n'second'\n\n- ['first', 'second']\n+ ['second']\n\n======================================================================\nFAIL: test_single_call (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 11, in test_single_call\n    self.assertEqual(push_event(\"a\"), [\"a\"])\nAssertionError: Lists differ: ['first', 'second', 'a'] != ['a']\n\nFirst differing element 0:\n'first'\n'a'\n\nFirst list contains 2 additional elements.\nFirst extra element 1:\n'second'\n\n- ['first', 'second', 'a']\n+ ['a']\n\n----------------------------------------------------------------------\nRan 2 tests in 0.001s\n\nFAILED (failures=2)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07572221755981445,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/state_push_event.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | FF ====================================================================== FAIL: test_independent_calls (test_visible.VisibleTests) ------------------------------------------------------------------...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "state_push_event",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.807471+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.777482+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.848709+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.808268+00:00",
+              "stderr": "F.\n======================================================================\nFAIL: test_copy (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 18, in test_copy\n    self.assertEqual(state[\"a\"], 1)\nAssertionError: 2 != 1\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07498002052307129,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/state_snapshot_copy.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | F. ====================================================================== FAIL: test_copy (test_visible.VisibleTests) ---------------------------------------------------------------------- Tracebac...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "state_snapshot_copy",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.880882+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.852539+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.921210+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.881628+00:00",
+              "stderr": ".E\n======================================================================\nERROR: test_string (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_string\n    self.assertTrue(validate_age(\"10\"))\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/../../src/app.py\", line 2, in validate_age\n    return 0 <= value <= 130\nTypeError: '<=' not supported between instances of 'int' and 'str'\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (errors=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.0725710391998291,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/validator_age_numeric.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .E ====================================================================== ERROR: test_string (test_visible.VisibleTests) ---------------------------------------------------------------------- Trace...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "validator_age_numeric",
+          "visible_passed": false
+        },
+        {
+          "changed_files": [],
+          "commands": [
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 agent.py",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/repo",
+              "end_time": "2026-03-25T00:12:21.953578+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.925153+00:00",
+              "stderr": "unsupported task payload\n",
+              "stdout": ""
+            },
+            {
+              "command": "/Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m unittest discover -s tests/visible -p 'test_*.py'",
+              "cwd": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace",
+              "end_time": "2026-03-25T00:12:21.994419+00:00",
+              "exit_code": 1,
+              "start_time": "2026-03-25T00:12:21.954542+00:00",
+              "stderr": ".F\n======================================================================\nFAIL: test_strip (test_visible.VisibleTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/evaluations/cand_0001/.superagent_workspace/tests/visible/test_visible.py\", line 14, in test_strip\n    self.assertEqual(normalize_email(\" a@EXAMPLE.COM \"), \"a@example.com\")\nAssertionError: ' a@example.com ' != 'a@example.com'\n-  a@example.com \n? -             -\n+ a@example.com\n\n\n----------------------------------------------------------------------\nRan 2 tests in 0.000s\n\nFAILED (failures=1)\n",
+              "stdout": ""
+            }
+          ],
+          "duration_seconds": 0.07305216789245605,
+          "hidden_result": "not_run",
+          "integrity_flags": [
+            "blocking:run_command_failed",
+            "warning:missing_files_written"
+          ],
+          "mismatch_summary": "",
+          "passed": false,
+          "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/validator_email_strip.json",
+          "score": 0.0,
+          "split": "train",
+          "stderr_summary": "unsupported task payload | .F ====================================================================== FAIL: test_strip (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceba...",
+          "stdout_summary": "",
+          "task_cost_usd": 0.0,
+          "task_id": "validator_email_strip",
+          "visible_passed": false
+        }
+      ],
+      "train_score": 0.0,
+      "wall_clock_seconds": 1.5128419399261475
+    }
+  ],
+  "candidate_fingerprint": "a9a888d0647ac5ed07e04f5af43112b32f60dc6928b70fea4f821c77494d7134",
+  "candidate_id": "cand_0001",
+  "confirmation_rerun_passed": false,
+  "confirmation_rerun_required": false,
+  "created_at": "2026-03-25T00:12:20.448761+00:00",
+  "diff_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/diffs/cand_0001.patch",
+  "failure_summary": {
+    "actionable_snippets": [
+      {
+        "snippet": "unsupported task payload | .F ====================================================================== FAIL: test_slashes (test_visible.VisibleTests) ---------------------------------------------------------------------- Trace...",
+        "task_id": "api_build_url"
+      },
+      {
+        "snippet": "unsupported task payload | .E ====================================================================== ERROR: test_program_name (test_visible.VisibleTests) ----------------------------------------------------------------------...",
+        "task_id": "cli_sum_args"
+      },
+      {
+        "snippet": "unsupported task payload | F. ====================================================================== FAIL: test_blank (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceba...",
+        "task_id": "config_port_strip"
+      },
+      {
+        "snippet": "unsupported task payload | F ====================================================================== FAIL: test_simple (test_visible.VisibleTests) ---------------------------------------------------------------------- Traceba...",
+        "task_id": "file_count_nonempty"
+      },
+      {
+        "snippet": "unsupported task payload | F. ====================================================================== FAIL: test_timeout (test_visible.VisibleTests) ---------------------------------------------------------------------- Trace...",
+        "task_id": "api_fetch_timeout"
+      }
+    ],
+    "built_in_denylist": [
+      ".git/",
+      ".superagent/",
+      ".env",
+      ".env.*",
+      "*.pem",
+      "*.key",
+      "*.p12",
+      "*.pfx",
+      "id_rsa",
+      "id_ed25519",
+      ".superagent_hidden/",
+      ".superagent_control/",
+      ".superagent_eval_assets/",
+      ".superagent_gold/"
+    ],
+    "candidate_id": "cand_0001",
+    "failing_tasks": [
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/api_build_url.json",
+        "split": "train",
+        "task_id": "api_build_url"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_sum_args.json",
+        "split": "train",
+        "task_id": "cli_sum_args"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/config_port_strip.json",
+        "split": "train",
+        "task_id": "config_port_strip"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/file_count_nonempty.json",
+        "split": "train",
+        "task_id": "file_count_nonempty"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/api_fetch_timeout.json",
+        "split": "train",
+        "task_id": "api_fetch_timeout"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_missing_name.json",
+        "split": "train",
+        "task_id": "cli_missing_name"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_upper_stdin.json",
+        "split": "train",
+        "task_id": "cli_upper_stdin"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/config_enabled_services.json",
+        "split": "train",
+        "task_id": "config_enabled_services"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/file_write_report.json",
+        "split": "train",
+        "task_id": "file_write_report"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_bool_tokens.json",
+        "split": "train",
+        "task_id": "parser_bool_tokens"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_csv_blanks.json",
+        "split": "train",
+        "task_id": "parser_csv_blanks"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_key_values.json",
+        "split": "train",
+        "task_id": "parser_key_values"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_pipe_fields.json",
+        "split": "train",
+        "task_id": "parser_pipe_fields"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_semicolon_tokens.json",
+        "split": "train",
+        "task_id": "parser_semicolon_tokens"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/pipeline_counts_sorted.json",
+        "split": "train",
+        "task_id": "pipeline_counts_sorted"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/pipeline_skip_comments.json",
+        "split": "train",
+        "task_id": "pipeline_skip_comments"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/state_push_event.json",
+        "split": "train",
+        "task_id": "state_push_event"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/state_snapshot_copy.json",
+        "split": "train",
+        "task_id": "state_snapshot_copy"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/validator_age_numeric.json",
+        "split": "train",
+        "task_id": "validator_age_numeric"
+      },
+      {
+        "receipt_path": "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/validator_email_strip.json",
+        "split": "train",
+        "task_id": "validator_email_strip"
+      }
+    ],
+    "integrity_flags": [
+      "blocking:run_command_failed",
+      "warning:missing_files_written"
+    ],
+    "parent_id": "baseline",
+    "receipt_references": [
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/api_build_url.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_sum_args.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/config_port_strip.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/file_count_nonempty.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/api_fetch_timeout.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_missing_name.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/cli_upper_stdin.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/config_enabled_services.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/file_write_report.json",
+      "/Users/michaelzhu/Desktop/superagent/artifacts/runs/howto-code/.superagent/receipts/cand_0001/cand_0001/parser_bool_tokens.json"
+    ],
+    "regression_summary": {
+      "candidate_guard_score": 0.0,
+      "candidate_sample_score": 0.0,
+      "candidate_train_score": 0.0,
+      "parent_guard_score": 0.0,
+      "parent_sample_score": 0.0,
+      "parent_train_score": 0.0
+    }
+  },
+  "guard_score": 0.0,
+  "in_active_archive": false,
+  "integrity_flags": [
+    "blocking:run_command_failed",
+    "warning:missing_files_written"
+  ],
+  "parent_id": "baseline",
+  "sample_score": 0.0,
+  "task_cost_usd": 0.0,
+  "train_score": 0.0,
+  "verdict": "integrity_blocked",
+  "wall_clock_seconds": 1.5128419399261475,
+  "workspace_hash": "74d3256dca5d156cf683cce4fcefe6946960671faa8f7cd3537128693bc894ea"
+}
